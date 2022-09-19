@@ -87,7 +87,6 @@ class SitesController extends Controller
         ]);
         $site_name = json_decode($response->getBody()->getContents());
         $site_url = $site_name->url;
-        
         return redirect()->away(''.$site_url.'');
     }
 

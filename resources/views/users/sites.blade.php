@@ -1,53 +1,6 @@
 
 <x-app-layout>
-    <div class="z-0 grid   p-10 gap-6">
-        <table class="min-w-full leading-normal ">
-            <thead>
-                <tr>
-                    <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-white text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Nombre
-                    </th>
-                    <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-white text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        site_name
-                    </th>
-                   
-                    <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-white text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Creado
-                    </th>
-                    <th
-                        class="px-5 py-3 border-b-2 border-gray-200 bg-white text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">
-                        Acciones
-                    </th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach ($sites as $site)
-                    <tr>
-                        <td class="p-5 m-5">
-                            {{$site->nombre}}
-                            
-                        </td>
-                        <td class="p-5 m-5">
-                            {{$site->siteid}}
-                        </td>
-                        
-                        <td class="p-5 m-5">
-                            {{$site->creado}}
-                        </td>
-
-                        <td class="flex mt-3">
-                            <a class="p-3 mr-5 flex items-center rounded-md px-4 duration-300 cursor-pointer  bg-violet-600 text-white " href="/editar/{{Auth::user()->email}}/{{$site->siteid}}">Editar</a>
-                            <a class="p-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-red-600 text-white " href="/delete/{{$site->siteid}}/{{$site->id}}">Borrar Sitio</a>
-                        </td>
-                    </tr>
-                @endforeach
-            </tbody>
-            
-        </table>
-    </div>
+  
     
 
     <div class="container mx-auto px-4 sm:px-8">
@@ -61,39 +14,8 @@
             >
               <table class="w-full leading-normal">
                 <thead>
-                  <tr>
-                    <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                    >
-                      Nombre del Sitio
-                    </th>
-                    <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                    >
-                      Site ID
-                    </th>
-                    <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                    >
-                      Fecha de Creacion
-                    </th>
-                    <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                    >
-                      Ultima Modificacion
-                    </th>
-                    <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                    >
-                      Status
-                    </th>
-                    <th
-                      class="px-5 py-3 border-b-2 border-gray-200 bg-gray-100 text-left text-xs font-semibold text-gray-700 uppercase tracking-wider"
-                    >
-                      Acciones
-                    </th>
-                    
-                  </tr>
+                 @foreach ($sites as $site)   
+                  
                 </thead>
                 <tbody>
                   <tr>
@@ -130,14 +52,17 @@
                         <span class="relative">{{$site->publish_status}}</span>
                       </span>
                     </td>
-                    <td
-                      class="flex px-5 py-5 border-b border-gray-200 bg-white text-sm text-right"
-                    >
+
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                        <p class="text-gray-900 whitespace-no-wrap">{{$site->modification_date}}</p>
+                        </span>
+                    </td>
+                    <td class="flex px-5 py-5 border-b border-gray-200 bg-white text-sm text-right">
                     <a class="p-3 mr-5 flex items-center rounded-md px-4 duration-300 cursor-pointer  bg-violet-600 text-white " href="/editar/{{Auth::user()->email}}/{{$site->siteid}}">Editar</a>
                     <a class="p-3 flex items-center rounded-md px-4 duration-300 cursor-pointer bg-red-600 text-white " href="/delete/{{$site->siteid}}/{{$site->id}}">Borrar Sitio</a>
                     </td>
                   </tr>
-                  
+                 @endforeach 
                 </tbody>
               </table>
             </div>
