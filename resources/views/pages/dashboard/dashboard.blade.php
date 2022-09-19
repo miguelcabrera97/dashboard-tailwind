@@ -1,17 +1,17 @@
 <x-app-layout>
-    <div class="px-4 sm:px-6 lg:px-8 py-8 w-full max-w-9xl mx-auto">
+    <div class="px-4 sm:px-6 lg:px-8 py-2 w-full max-w-9xl mx-auto">
         
         <!-- Welcome banner -->
         <x-dashboard.welcome-banner />
 
         <!-- Dashboard actions -->
-        <div class="sm:flex sm:justify-between sm:items-center mb-8">
+        <div class="sm:flex sm:justify-between sm:items-center mb-1">
 
             <!-- Left: Avatars -->
-            <x-dashboard.dashboard-avatars />
+            {{-- <x-dashboard.dashboard-avatars /> --}}
 
             <!-- Right: Actions -->
-            <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
+            {{-- <div class="grid grid-flow-col sm:auto-cols-max justify-start sm:justify-end gap-2">
 
                 <!-- Filter button -->
                 <x-dropdown-filter align="right" />
@@ -27,51 +27,63 @@
                     <span class="hidden xs:block ml-2">Add View</span>
                 </button>
                 
-            </div>
+            </div> --}}
 
         </div>
         
         <!-- Cards -->
-        <div class="grid grid-cols-12 gap-6">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-9">
 
             <!-- Line chart (Acme Plus) -->
-            <x-dashboard.dashboard-card-01 :dataFeed="$dataFeed" />
-
+            {{-- <x-dashboard.dashboard-card-01 :dataFeed="$dataFeed" /> --}}
+            
+                <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm text-center  inline-block align-middle">01</div>
+                <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm">02</div>
+                <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm">03</div>
+                <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm">04</div>
+                <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm">05</div>
+                <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm">06</div>
+            
             <!-- Line chart (Acme Advanced) -->
-            <x-dashboard.dashboard-card-02 :dataFeed="$dataFeed" />
+             {{-- <x-dashboard.dashboard-card-02/> 
+             <x-dashboard.dashboard-card-03/>
+             <x-dashboard.dashboard-card-04/>
+             <x-dashboard.dashboard-card-05/>
+             <x-dashboard.dashboard-card-06/>
+             <x-dashboard.dashboard-card-11/> --}}
 
             <!-- Line chart (Acme Professional) -->
-            <x-dashboard.dashboard-card-03 :dataFeed="$dataFeed" />
+            {{-- <x-dashboard.dashboard-card-03 :dataFeed="$dataFeed" /> --}}
 
             <!-- Bar chart (Direct vs Indirect) -->
-            <x-dashboard.dashboard-card-04 />
+            {{-- <x-dashboard.dashboard-card-04 /> --}}
 
             <!-- Line chart (Real Time Value) -->
-            <x-dashboard.dashboard-card-05 />
+            {{-- <x-dashboard.dashboard-card-05 /> --}}
 
             <!-- Doughnut chart (Top Countries) -->
-            <x-dashboard.dashboard-card-06 />
+            {{-- <x-dashboard.dashboard-card-06 /> --}}
 
             <!-- Table (Top Channels) -->
-            <x-dashboard.dashboard-card-07 />
+            {{-- <x-dashboard.dashboard-card-07 /> --}}
 
             <!-- Line chart (Sales Over Time)  -->
-            <x-dashboard.dashboard-card-08 />
+            {{-- <x-dashboard.dashboard-card-08 /> --}}
 
             <!-- Stacked bar chart (Sales VS Refunds) -->
-            <x-dashboard.dashboard-card-09 />
+            {{-- <x-dashboard.dashboard-card-09 /> --}}
 
             <!-- Card (Customers)  -->
-            <x-dashboard.dashboard-card-10 />
+            {{-- <x-dashboard.dashboard-card-10 /> --}}
 
             <!-- Card (Reasons for Refunds)   -->
-            <x-dashboard.dashboard-card-11 />             
+            {{-- <x-dashboard.dashboard-card-11 />              --}}
 
             <!-- Card (Recent Activity) -->
-            <x-dashboard.dashboard-card-12 />
+            {{-- <x-dashboard.dashboard-card-12 /> --}}
             
             <!-- Card (Income/Expenses) -->
-            <x-dashboard.dashboard-card-13 />
+            {{-- <x-dashboard.dashboard-card-13 /> --}}
 
         </div>
 

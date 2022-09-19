@@ -1,4 +1,4 @@
-  <div class="col-span-full xl:col-span-6 bg-white shadow-lg rounded-sm border border-gray-200">
+  <div class="col-span-full xl:col-span-4 bg-white shadow-lg rounded-sm border border-gray-200">
     <header class="px-5 py-4 border-b border-gray-100">
         <h2 class="font-semibold text-gray-800">Customers</h2>
     </header>
