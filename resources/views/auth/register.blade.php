@@ -3,6 +3,28 @@
     <!-- Form -->
     <form method="POST" action="{{ route('register') }}">
         @csrf
+
+        <div class="space-y-4 ">
+
+            <div class="w-full  px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name" for="email" value="{{ __('Correo Electrónico:') }}">
+                   Correo Electrónico:
+                </label>
+                <input id="email" type="email" name="email" :value="old('email')" required autofocus  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="correo@correo.com">
+            </div>
+
+
+
+            <div class="w-full  px-3">
+                <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"  for="password" value="{{ __('Password') }}">
+                   Contraseña:
+                </label>
+                <input id="password" type="password" name="password" required autocomplete="current-password"   class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" placeholder="**************">
+            </div>
+
+    </div>
+
+
         <div class="space-y-4">
             <div>
                 <x-jet-label for="name">{{ __('Full Name') }} <span class="text-rose-500">*</span></x-jet-label>
@@ -33,7 +55,7 @@
             </div>
             <x-jet-button>
                 {{ __('Sign Up') }}
-            </x-jet-button>                
+            </x-jet-button>
         </div>
             @if (Laravel\Jetstream\Jetstream::hasTermsAndPrivacyPolicyFeature())
                 <div class="mt-6">
@@ -43,13 +65,13 @@
                             {!! __('I agree to the :terms_of_service and :privacy_policy', [
                                 'terms_of_service' => '<a target="_blank" href="'.route('terms.show').'" class="text-sm underline hover:no-underline">'.__('Terms of Service').'</a>',
                                 'privacy_policy' => '<a target="_blank" href="'.route('policy.show').'" class="text-sm underline hover:no-underline">'.__('Privacy Policy').'</a>',
-                            ]) !!}                        
+                            ]) !!}
                         </span>
                     </label>
                 </div>
-            @endif        
+            @endif
     </form>
-    <x-jet-validation-errors class="mt-4" />  
+    <x-jet-validation-errors class="mt-4" />
     <!-- Footer -->
     <div class="pt-5 mt-6 border-t border-slate-200">
         <div class="text-sm">
