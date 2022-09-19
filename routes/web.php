@@ -5,6 +5,7 @@ use App\Http\Controllers\DataFeedController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TemplatesBdController;
 use App\Http\Controllers\SitesController;
+use App\Http\Controllers\UserController;
 
 Route::redirect('/', 'login');
 
@@ -19,7 +20,8 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     });    
 });
 
-
+Route::get('/sites',[UserController::class,'show'])->name('sites');
+Route::get('/plantillas',[UserController::class, 'plantillas'])->name('plantillas');
 
 Route::controller(SitesController::class)->group(function(){
     
