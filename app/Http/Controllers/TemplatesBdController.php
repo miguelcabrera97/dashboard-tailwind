@@ -16,9 +16,9 @@ class TemplatesBdController extends Controller
             'Authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
         ],
         ]);
-        return $response;
+
         $templates = json_decode($response->getBody());
-        return $templates;
+        
         foreach($templates as $template){
             DB::table('templates')->insert([
                 ['template_name' => ''.$template->template_name.'',
@@ -31,6 +31,6 @@ class TemplatesBdController extends Controller
         
         
 
-         return view('pages.templates.templates');
+         return view('pages.templates.templates', compact('templates'));
     }
 }

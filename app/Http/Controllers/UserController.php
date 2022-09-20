@@ -22,6 +22,6 @@ class UserController extends Controller
 
     public function plantillas(){
         $templates = DB::table('templates')->get();
-        return view('templates',['templates' => $templates]);
+        return view('pages.templates.templates',['templates' => $templates]);
     }
 }

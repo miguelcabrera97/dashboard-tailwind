@@ -38,9 +38,8 @@ Route::controller(SitesController::class)->group(function(){
 
     Route::get('/delete/{site}/{id}','delete');
 
-    Route::get('/templates','show')->name('templates');
 });
 
-//
+//Solo se usa uan vez
 
 Route::get('/cargar',[TemplatesBdController::class,'templates']);
