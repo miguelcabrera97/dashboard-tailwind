@@ -17,16 +17,16 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::fallback(function() {
         return view('pages/utility/404');
-    });    
+    });
 });
 
 Route::get('/sites',[UserController::class,'show'])->name('sites');
 Route::get('/plantillas',[UserController::class, 'plantillas'])->name('plantillas');
 
 Route::controller(SitesController::class)->group(function(){
-    
+
     //Ruta a Crontolador para mostrar Plantillas Disponibles
-    //Route::get('/crearsitio','crear')->name('crearsitio'); 
+    //Route::get('/crearsitio','crear')->name('crearsitio');
 
     //Ruta para mostrar Sitios que el Usuario a Creado por medio de API
     // Route::get('/sitios/{user}',[SitesController::class, 'sitios'])->name('sitios');
