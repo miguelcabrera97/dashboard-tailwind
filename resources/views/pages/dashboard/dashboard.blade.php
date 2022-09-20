@@ -2,7 +2,10 @@
     <div class="px-4 sm:px-6 lg:px-8 py-2 w-full max-w-9xl mx-auto">
 
         <!-- Welcome banner -->
-        <x-dashboard.welcome-banner />
+        <div class="pt-3">
+            <x-dashboard.welcome-banner />
+        </div>
+
 
         <!-- Dashboard actions -->
         <div class="sm:flex sm:justify-between sm:items-center mb-1">
@@ -37,7 +40,7 @@
             <!-- Line chart (Acme Plus) -->
             {{-- <x-dashboard.dashboard-card-01 :dataFeed="$dataFeed" /> --}}
 
-                <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
+                <div class="relative hover:scale-110 transition duration-200 bg-indigo-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
 
                         <div class=" flex justify-center items-center p-2 mt-2">
                             <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-fingerprint" viewBox="0 0 16 16">
@@ -64,7 +67,7 @@
                 </div>
 
 
-                <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
+                <div class="relative hover:scale-110 transition duration-200 bg-indigo-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
 
                     <div class=" flex justify-center items-center p-2 mt-2">
                         <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-plus-square" viewBox="0 0 16 16">
@@ -88,7 +91,7 @@
             </div>
 
 
-            <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
+            <div class="relative hover:scale-110 transition duration-200 bg-indigo-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
 
                 <div class=" flex justify-center items-center p-2 mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-collection" viewBox="0 0 16 16">
@@ -111,7 +114,7 @@
         </div>
 
 
-        <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
+        <div class="relative hover:scale-110 transition duration-200 bg-indigo-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
 
             <div class=" flex justify-center items-center p-2 mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
@@ -135,7 +138,7 @@
         </div>
 
 
-        <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
+        <div class="relative hover:scale-110 transition duration-200 bg-indigo-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
 
             <div class=" flex justify-center items-center p-2 mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" fill="currentColor" class="bi bi-question-circle" viewBox="0 0 16 16">
@@ -159,7 +162,7 @@
         </div>
 
 
-        <div class="relative hover:scale-110 transition duration-200 bg-blue-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
+        <div class="relative hover:scale-110 transition duration-200 bg-indigo-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
 
             <div class=" flex justify-center items-center p-2 mt-2">
                 <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-headset" viewBox="0 0 16 16">
