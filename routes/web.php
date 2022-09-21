@@ -9,7 +9,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-Route::redirect('/', 'login');
+Route::redirect('/', 'login')->name('login');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
 
