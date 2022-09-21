@@ -161,7 +161,7 @@
                   <span class="ml-3 text-sm">Certificado SSL <span class="text-black">Gratis</span></span>
                 </li>
                 <li class="flex text-lg mb-2">
-                  <img src="https://res.cloudinary.com/williamsondesign/check-grey.svg" />
+                <img src="https://res.cloudinary.com/williamsondesign/check-grey.svg" />
                   <span class="ml-3 text-sm">Sitio <span class="text-black">Multilenguaje</span></span>
                 </li>
                 <li class="flex text-lg mb-2">
