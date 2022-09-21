@@ -6,6 +6,8 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TemplatesBdController;
 use App\Http\Controllers\SitesController;
 use App\Http\Controllers\UserController;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 Route::redirect('/', 'login');
 
@@ -43,3 +45,19 @@ Route::controller(SitesController::class)->group(function(){
 //Solo se usa uan vez
 
 Route::get('/cargar',[TemplatesBdController::class,'templates']);
+
+
+
+Route::get('/facturacion', function(){
+    $stripe = new \Stripe\StripeClient(
+        'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
+      );
+    $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
+
+
+    $responses = $stripe->subscriptions->all( ['customer' => ''.$idcreado->id_stripe.''] );
+    $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
+    //return dd($invoices->data[1]->lines->data[0]->period->end);
+    //return dd($invoices);
+    return view('stripe.facturacion', compact('invoices','responses'));
+})->name('facturacion');
