@@ -68,4 +68,4 @@ Route::get('/checkout', function(){
     return view('stripe.checkout');
 });
 
-Route::get('/Mxn-Anual',[PagoStripeController::class, 'PagarMxnAnual'])-> name("mxn");
+Route::get('/Mxn-Anual/{email?}',[PagoStripeController::class, 'PagarMxnAnual'])-> name("mxn");

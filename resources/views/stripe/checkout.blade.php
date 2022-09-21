@@ -30,10 +30,21 @@
                 <span class="ml-3"><span class="text-black">5 TB</span> cloud storage</span>
               </li>
             </ul>
-            <a href="#/" class="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
-              Choose Plan
+            
+            <div class="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
+                <form action="{{route('mxn')}}" method="GET">
+                    @csrf
+                    <input type="hidden" value="{{Auth::user()->email}}" name="emailuser">
+                    <button>
+                        Choose Plan
+                    </button>
+                </form>
+
+              
               <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
-            </a>
+            </div>
+
+            
           </div>
 
           <div class="w-full flex-1 p-8 order-1 shadow-xl rounded-3xl bg-gray-900 text-gray-400 sm:w-96 lg:w-full lg:order-2 lg:mt-0">
