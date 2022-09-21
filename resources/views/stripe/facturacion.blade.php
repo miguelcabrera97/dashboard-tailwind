@@ -43,7 +43,7 @@
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <div class="ml-3">
                           <p class="text-gray-900 whitespace-no-wrap">
-                            {{$invoice->status}}
+                            {{$invoice->amount_paid/100}}
                           </p>
                         </div>
                     </td>
@@ -51,38 +51,31 @@
 
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
                         <p class="text-gray-900 whitespace-no-wrap">
-                            {{$invoice->status}}
+                            {{$invoice->currency}}
                         </p> 
                     </td>
 
 
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">
-                            {{$invoice->status}}
-                        </p>
-                    </td>
-
-                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <span
-                        class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight"
-                      >
-                        <span
-                          aria-hidden
-                          class="absolute inset-0 bg-green-200 opacity-50 rounded-full"
-                        ></span>
+                      <span class="relative inline-block px-3 py-1 font-semibold text-green-900 leading-tight">
+                        <span aria-hidden class="absolute inset-0 bg-green-200 opacity-50 rounded-full"></span>
                         <span class="relative">{{$invoice->status}}</span>
                       </span>
                     </td>
 
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                        <p class="text-gray-900 whitespace-no-wrap">{{$invoice->status}}</p>
-                        </span>
+                      <a href="{{$invoice->hosted_invoice_url}}" target="blank_">Visualizar</a>
                     </td>
-                    <td class="flex px-5 py-5 border-b border-gray-200 bg-white text-sm justify-center">
-                      
+
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span class="capitalize"><a href="{{$invoice->invoice_pdf}}">Descargar</a></span>
                     </td>
-                    <td class="flex px-5 py-5 border-b border-gray-200 bg-white text-sm justify-center">
-                      
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span class="capitalize">{{$invoice->period_end}}</span>
+                    </td>
+
+                    <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
+                      <span class="capitalize">Aun no</span>
                     </td>
                   </tr>
                  @endforeach 

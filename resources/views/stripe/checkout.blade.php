@@ -71,10 +71,26 @@
               </li>
 
             </ul>
+<<<<<<< HEAD
+            
+            <div class="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
+                <form action="{{route('mxn')}}" method="GET">
+                    @csrf
+                    <input type="hidden" value="{{Auth::user()->email}}" name="emailuser">
+                    <button>
+                        Choose Plan
+                    </button>
+                </form>
+
+              
+=======
             <a href="#/" class="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-blue-600 hover:rounded-2xl ">
               Choose Plan
+>>>>>>> 865868eabf5f74629275e58bfc4a70e594d0c46f
               <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
-            </a>
+            </div>
+
+            
           </div>
         {{-- TERMINA  CARD UNO --}}
 
