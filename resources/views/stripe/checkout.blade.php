@@ -109,9 +109,9 @@
 
                                 </div>
                                 <div class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-blue-500">
-                                    <form action="" method="POST">
+                                    <form action="{{route('mxn')}}" method="POST">
                                         @csrf
-                                        <input type="text" value="{{Auth::user()->email}}" name="emailuser">
+                                        <input type="hidden" value="{{Auth::user()->email}}" name="emailuser">
                                         <button class="w-full p-3 mt-2 font-semibold text-center uppercase bg-white border border-transparent rounded text-blue-500">
                                             Escoger Plan
                                         </button>
@@ -206,7 +206,7 @@
                                     class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-blue-500"
                                   >
 
-                                  <form action="" method="POST">
+                                  <form action="mxn" method="POST">
                                     @csrf
                                     <input type="text" value="{{Auth::user()->email}}" name="emailuser">
                                     <button class="w-full p-3 mt-2 font-semibold text-center uppercase bg-white border border-transparent rounded text-blue-500">
@@ -303,7 +303,7 @@
                                     class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-blue-500"
                                   >
 
-                                  <form action="" method="POST">
+                                  <form action="mxn" method="POST">
                                     @csrf
                                     <input type="text" value="{{Auth::user()->email}}" name="emailuser">
                                     <button class="w-full p-3 mt-2 font-semibold text-center uppercase bg-white border border-transparent rounded text-blue-500">
@@ -413,7 +413,7 @@
                                   class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-blue-500"
                                 >
 
-                                <form action="" method="POST">
+                                <form action="mxn" method="POST">
                                     @csrf
                                     <button class="w-full p-3 mt-2 font-semibold text-center uppercase bg-white border border-transparent rounded text-blue-500">
                                         Escoger Plan
@@ -508,7 +508,7 @@
                                     class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-blue-500"
                                   >
 
-                                  <form action="" method="POST">
+                                  <form action="mxn" method="POST">
                                     @csrf
                                     <button class="w-full p-3 mt-2 font-semibold text-center uppercase bg-white border border-transparent rounded text-blue-500">
                                         Escoger Plan
@@ -604,7 +604,7 @@
                                     class="flex flex-col items-center justify-center w-full h-full py-6 rounded-b-lg bg-blue-500"
                                   >
 
-                                  <form action="" method="POST">
+                                  <form action="mxn" method="POST">
                                     @csrf
                                     <button class="w-full p-3 mt-2 font-semibold text-center uppercase bg-white border border-transparent rounded text-blue-500">
                                         Escoger Plan
