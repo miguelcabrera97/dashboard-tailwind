@@ -1,12 +1,37 @@
 <x-app-layout>
-
       <main class="max-w-6xl mx-auto pt-10 pb-36 px-8">
 
         <div class="max-w-md mx-auto mb-10 text-center">
           <h1 class="text-4xl font-semibold mb-6 lg:text-5xl"><span class="text-indigo-600">Selecciona tu </span> Plan</h1>
         </div>
 
-        <div class="flex flex-col justify-between items-center lg:flex-row lg:items-start">
+        <div class="flex  items-center place-content-center w-full mb-5">
+            <div class="flex mr-3 ">
+                <span class="text-gray-500"> Mensual </span>
+            </div>
+
+            <div class="flex space-y-2 text-center" x-data="{planes: false}">
+                <button
+                  class="transition ease-in-out duration-300 w-12 bg-gray-200 rounded-full focus:outline-none"
+                  :class="{ 'bg-purple-400': planes }"
+                  x-on:click="planes = !planes"
+                >
+                  <div
+                    class="transition ease-in-out duration-300 rounded-full h-6 w-6 bg-white shadow"
+                    :class="{ 'transform translate-x-full ': planes }"
+                  ></div>
+                </button>
+              </div>
+
+              <div class="flex ml-3">
+                <span class="text-gray-500">  Mensual  <span class="text-green-500">(-20%)</span> </span>
+            </div>
+
+
+
+        </div>
+
+    <div class="flex flex-col justify-between items-center lg:flex-row lg:items-start">
 
         {{-- CARD UNO --}}
           <div class="w-full flex-1 mt-8 p-8 order-2 bg-white shadow-xl rounded-3xl sm:w-96 lg:w-full lg:order-1 lg:rounded-r-none">
@@ -14,7 +39,8 @@
               <img src="https://res.cloudinary.com/williamsondesign/abstract-1.jpg"  alt="" class="rounded-3xl w-20 h-20" />
               <div class="ml-5">
                 <span class="block text-2xl font-semibold">Sitio Web Básico</span>
-                <span><span class="font-medium text-gray-500 text-xl align-top">$&thinsp;</span><span class="text-3xl font-bold">10 </span></span><span class="text-gray-500 font-medium">/ mxn</span>
+
+                <span><span class="font-medium text-gray-500 text-xl align-top">$&thinsp;</span><span class="text-3xl font-bold">10 </span></span><span class="text-gray-500 font-medium">/ Mes</span>
               </div>
             </div>
 
@@ -194,7 +220,7 @@
             </a>
           </div>
 
-        </div>
+    </div>
 
       </main>
 </x-app-layout>
