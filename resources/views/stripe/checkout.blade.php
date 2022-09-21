@@ -72,7 +72,7 @@
 
             </ul>
             <a href="#/" class="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-blue-600 hover:rounded-2xl ">
-              Choose Plan
+              Elegir este Plan
               <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
             </a>
           </div>
