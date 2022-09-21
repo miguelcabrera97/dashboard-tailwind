@@ -61,3 +61,8 @@ Route::get('/facturacion', function(){
     //return dd($invoices);
     return view('stripe.facturacion', compact('invoices','responses'));
 })->name('facturacion');
+
+
+Route::get('/checkout', function(){
+    return view('stripe.checkout');
+});

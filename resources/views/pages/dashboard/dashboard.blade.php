@@ -113,7 +113,7 @@
 
 
         <div class="relative hover:scale-110 transition duration-200 bg-indigo-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
-            <a href="#">
+            <a href="{{route('facturacion')}}">
                 <div class=" flex justify-center items-center p-2 mt-2">
                     <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-credit-card" viewBox="0 0 16 16">
                         <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v1h14V4a1 1 0 0 0-1-1H2zm13 4H1v5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1V7z"/>
