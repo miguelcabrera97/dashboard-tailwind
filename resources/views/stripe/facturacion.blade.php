@@ -71,11 +71,11 @@
                       <span class="capitalize"><a href="{{$invoice->invoice_pdf}}">Descargar</a></span>
                     </td>
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <span class="capitalize">{{$invoice->period_end}}</span>
+                      <span class="capitalize">{{$invoice->period_start}}</span>
                     </td>
 
                     <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                      <span class="capitalize">Aun no</span>
+                      <span class="capitalize">{{$invoice->period_end}}</span>
                     </td>
                   </tr>
                  @endforeach 
