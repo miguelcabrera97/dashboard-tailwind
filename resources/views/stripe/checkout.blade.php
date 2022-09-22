@@ -97,10 +97,14 @@
               </li>
 
             </ul>
-            <a href="#/" class="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-blue-600 hover:rounded-2xl ">
+            <form action="{{route('mxn')}}" method="GET">
+              <input type="hidden" value="{{Auth::user()->email}}" name="emailuser">
+            
+            <button href="#/" class="w-full flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-blue-600 hover:rounded-2xl ">
               Elegir este
               <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
-            </a>
+            </button>
+            </form>
           </div>
         {{-- TERMINA  CARD UNO --}}
 
@@ -157,10 +161,14 @@
                 </li>
 
               </ul>
-            <a href="#/" class="flex justify-center items-center bg-indigo-600 rounded-xl py-6 px-4 text-center text-white text-2xl">
-              Choose Plan
-              <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
-            </a>
+              <form action="{{route('mxn')}}" method="GET">
+                <input type="hidden" value="{{Auth::user()->email}}" name="emailuser">
+              
+              <button href="#/" class="w-full flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-blue-600 hover:rounded-2xl ">
+                Elegir este
+                <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
+              </button>
+              </form>
           </div>
           {{-- TERMINA CARD DOS  --}}
 
@@ -214,10 +222,14 @@
                 </li>
 
               </ul>
-            <a href="#/" class="flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl">
-              Choose Plan
-              <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
-            </a>
+              <form action="{{route('mxn')}}" method="GET">
+                <input type="hidden" value="{{Auth::user()->email}}" name="emailuser">
+              
+              <button href="#/" class="w-full flex justify-center items-center bg-indigo-600 rounded-xl py-5 px-4 text-center text-white text-xl transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 hover:bg-blue-600 hover:rounded-2xl ">
+                Elegir este
+                <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />
+              </button>
+              </form>
           </div>
 
     </div>
