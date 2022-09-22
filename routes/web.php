@@ -60,8 +60,22 @@ Route::get('/facturacion', function(){
     $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
     //return dd($invoices->data[1]->lines->data[0]->period->end);
     //return dd($invoices);
-    //return $invoices;
-    return view('stripe.facturacion', compact('invoices','responses'));
+  
+    $start = array();
+    $end = array();
+    
+
+    $cont = intval( sizeof($invoices->data)) ;
+    for ($i=0; $i < $cont  ; $i++) { 
+      $start[$i] =  $invoices->data[$i]->lines->data[0]->period->start;
+      
+     $end[$i] =  $invoices->data[$i]->lines->data[0]->period->end;
+      
+    }
+
+
+   // return sizeof($invoices->data);
+   return view('stripe.facturacion', compact('invoices','end','start'));
 })->name('facturacion');
 
 
