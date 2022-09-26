@@ -7,8 +7,10 @@ use App\Http\Controllers\PagoStripeController;
 use App\Http\Controllers\TemplatesBdController;
 use App\Http\Controllers\SitesController;
 use App\Http\Controllers\UserController;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 
 Route::redirect('/', 'login');
 
@@ -45,7 +47,7 @@ Route::controller(SitesController::class)->group(function(){
 
 //Solo se usa uan vez
 
-Route::get('/cargar',[TemplatesBdController::class,'templates']);
+//Route::get('/cargar',[TemplatesBdController::class,'templates']);
 
 
 
@@ -71,11 +73,12 @@ Route::get('/facturacion', function(){
       
         $end[$i] =  $invoices->data[$i]->lines->data[0]->period->end;
         
+        $sub[$i] = $invoices->data[$i]->subscription;
     }
 
-
+    //return $invoices;
    // return sizeof($invoices->data);
-   return view('stripe.facturacion', compact('invoices','end','start'));
+   return view('stripe.facturacion', compact('invoices','end','start', 'sub'));
 })->name('facturacion');
 
 
@@ -84,3 +87,48 @@ Route::get('/checkout', function(){
 });
 
 Route::get('/Mxn-Anual/{email?}',[PagoStripeController::class, 'PagarMxnAnual'])-> name("mxn");
+
+Route::get('/pago', function(){
+    $stripe = new \Stripe\StripeClient(
+        'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
+      );
+     $pago = $stripe->paymentLinks->create([
+        'line_items' => [
+          [
+            'price' => 'price_1La0lrIouA9z8SYyz2y25JYC',
+            'quantity' => 1,
+          ],
+        ],
+      ]);
+      return redirect()->away(''.$pago->url.'');
+});
+
+
+Route::post('/cancelar', function(Request $request){
+  
+     $stripe = new \Stripe\StripeClient(
+     'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
+   );
+   $stripe->subscriptions->cancel(
+     ''.$request->sub.'',
+     []
+   );
+   return view('pages/dashboard/dashboard');
+})->name('cancelar');
+
+Route::get('/sus', function(){
+  
+  $stripe = new \Stripe\StripeClient(
+     'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
+   );
+   $subs=$stripe->subscriptions->all();
+   $cont = intval( sizeof($subs->data));
+   $status = array();
+   for ($i=0; $i < $cont ; $i++) {
+    $status[$i] = $subs->data[$i]->status;
+   }
+   //return $cont;
+   return $status;
+  // return view('stripe.suscripcion', compact('subs', 'status'));
+  
+});
