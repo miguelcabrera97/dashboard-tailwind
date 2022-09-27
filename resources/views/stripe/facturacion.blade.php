@@ -7,9 +7,7 @@
             <h2 class="text-3xl font-semibold leading-tight text-center">Mi Facturacion</h2>
           </div>
           <div class="px-4 py-4 -mx-4 overflow-x-auto sm:-mx-8 sm:px-8">
-            <div
-              class="inline-block w-full overflow-hidden rounded-lg shadow-md"
-            >
+            <div class="inline-block w-full overflow-hidden rounded-lg shadow-md">
               <table class="min-w-full leading-normal">
                 <thead>
                   <tr>
@@ -180,7 +178,7 @@
                           {{$invoices->data[$cont]->subscription}}
                         </p>
                       </div>
-                  </td>
+                    </td>
                     <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                         <div class="text-center">
                           <p class="text-gray-900 whitespace-no-wrap">
@@ -254,6 +252,7 @@
 
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <span class="capitalize">{{date('d/m/Y',$invoices->data[$cont]->lines->data[0]->period->end)}}</span>
+                      
                     </td>
                   </tr>
                     @php
@@ -261,7 +260,7 @@
                     @endphp
                     @endforeach 
 
-                    {{$status}}
+                    
                 
                 </tbody>
               </table>
