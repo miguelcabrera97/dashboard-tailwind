@@ -170,7 +170,7 @@
                 <tbody>
 
                   @php
-                    $cont =0;    
+                    $cont = 0;    
                   @endphp
                  @foreach ($invoices as $invoice) 
                   <tr>

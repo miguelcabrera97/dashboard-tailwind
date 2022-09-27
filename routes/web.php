@@ -60,12 +60,13 @@ Route::get('/facturacion', function(){
 
     $responses = $stripe->subscriptions->all( ['customer' => ''.$idcreado->id_stripe.''] );
     $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
+    $subs=$stripe->subscriptions->all();
     //return dd($invoices->data[1]->lines->data[0]->period->end);
     
     
     $start = array();
     $end = array();
-    
+    $status = array();
 
     $cont = intval( sizeof($invoices->data)) ;
     for ($i=0; $i < $cont  ; $i++) { 
@@ -74,6 +75,8 @@ Route::get('/facturacion', function(){
         $end[$i] =  $invoices->data[$i]->lines->data[0]->period->end;
         
         $sub[$i] = $invoices->data[$i]->subscription;
+
+        //$status[$i] = $subs->data[$i]->status;
     }
 
     //return $invoices;
