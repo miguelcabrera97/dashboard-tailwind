@@ -136,6 +136,10 @@
 
             <br><br><br>
 
+            
+             {{-- TERMINA TABLA DE PAGOS --}}
+
+             {{-- COMIENZA TABLA DE SUSCRIPCIONES --}}
             <div class="inline-block w-full overflow-hidden rounded-lg shadow-md">
               <table class="min-w-full leading-normal">
                 <thead>
@@ -143,12 +147,7 @@
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
                       Numero de Factura
                     </th>
-                    <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
-                      Total
-                    </th>
-                    <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
-                      Divisa
-                    </th>
+                  
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
                         Estado
                     </th>
@@ -177,35 +176,13 @@
                         </p>
                       </div>
                     </td>
-                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                        <div class="text-center">
-                          {{$subscripciones[$cont]}}
-                          {{-- <p class="text-gray-900 whitespace-no-wrap">
-                            <form action="{{route('cancelar')}}" method="POST">
-                              @csrf
-
-                              <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
-                        
-                              <button type="submit" value="submit">Cancelar Subscripcion</button>
-                            </form>
-                          </p> --}}
-                        </div>
-                    </td>
-
-
-                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                        <p class="text-center text-gray-900 uppercase whitespace-no-wrap">
-                            {{$invoice->currency}}
-                        </p> 
-                    </td>
-
-
+                    
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900">
                         <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 "></span>
                         
-
-                        <span class="relative text-center"></span>
+                        {{$subscripciones[$cont]}}
+                        
                         
                       </span>
                     </td>
@@ -230,102 +207,6 @@
                 
                 </tbody>
               </table>
-            </div>
-             {{-- COMIENZA TABLA DE PAGOS --}}
-
-             {{-- COMIENZA TABLA DE SUSCRIPCIONES --}}
-            <div class="inline-block w-full overflow-hidden rounded-lg shadow-md mt-5">
-                <table class="min-w-full leading-normal">
-                    <thead>
-                      <tr>
-                        <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
-                          Numero de Factura
-                        </th>
-                        <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
-                          Total
-                        </th>
-                        <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
-                          Divisa
-                        </th>
-                        <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
-                            Estado
-                        </th>
-
-                        <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
-                            Creado
-                        </th>
-                        <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
-                            Finaliza
-                        </th>
-                      </tr>
-
-                    </thead>
-                    <tbody>
-
-                      @php
-                        $cont = 0;
-                        $cont2 = 0
-                      @endphp
-                     @foreach ($invoices as $invoice)
-                      <tr>
-                        <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
-                          <div class="text-center">
-                            <p class="text-gray-900 whitespace-no-wrap">
-                              {{$invoices->data[$cont]->subscription}}
-                            </p>
-                          </div>
-                        </td>
-                        <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                            <div class="text-center">
-                              <p class="text-gray-900 whitespace-no-wrap">
-                                <form action="{{route('cancelar')}}" method="POST">
-                                  @csrf
-
-                                  <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
-
-                                  <button type="submit" value="submit">Cancelar Subscripcion</button>
-                                </form>
-                              </p>
-                            </div>
-                        </td>
-
-
-                        <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
-                            <p class="text-center text-gray-900 uppercase whitespace-no-wrap">
-                                {{$invoice->currency}}
-                            </p>
-                        </td>
-
-
-                        <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
-                          <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900">
-                            <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 "></span>
-
-
-                            <span class="relative text-center"></span>
-                          </span>
-                        </td>
-
-
-                        <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
-                          <span class="capitalize">{{ date('d/m/Y',$invoices->data[$cont]->lines->data[0]->period->start)}}</span>
-                        </td>
-
-                        <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
-                          <span class="capitalize">{{date('d/m/Y',$invoices->data[$cont]->lines->data[0]->period->end)}}</span>
-
-                        </td>
-                      </tr>
-                        @php
-                             $cont = $cont+1;
-                             $cont2 = $cont2+1;
-                        @endphp
-                        @endforeach
-
-
-
-                    </tbody>
-                  </table>
             </div>
             {{-- TERMINA TABLA DE SUSCRIPCIONES --}}
           </div>
