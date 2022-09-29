@@ -69,20 +69,36 @@
                         </p>
                     </td>
 
+                    @php
+                     $true = true;
+                     $statusok = "Pagado";
+                     $statusnot = "Pendiente";
+                    if ($invoice->status == "paid")
+                    {
+                      $true = $true;
+                    }
+                   
 
-                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
-                      <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900">
-                        <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 "></span>
-                        @php
-                            if ($invoice->status == "paid")
-                            {
-                              $status = "Pagado";
-                            }
-                        @endphp
+                    
+                   @endphp
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200" x-data="{show: '{{$true}}'}">
 
-                        <span class="relative text-center">{{$status}}</span>
-                      </span>
-                    </td>
+                      
+                   
+                      <template x-if="show">
+                        <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900 " id="texto-pagado">
+                          <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 " id="texto-marco-pagado"></span>
+                          <span class="relative text-center" > Pagado </span>        
+                        </span>
+                      </template>
+                      <template x-if="!show">
+                        <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-red-900 " id="texto-pagado">
+                          <span aria-hidden class="absolute inset-0 text-center bg-red-200 rounded-full opacity-50 " id="texto-marco-pagado"></span>
+                            <span class="relative text-center" > Pendiente </span>        
+                        </span>
+                      </template> 
+                               
+                    </td> 
 
                     <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 ">
 
@@ -147,11 +163,9 @@
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
                       Numero de Factura
                     </th>
-                  
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
                         Estado
                     </th>
-                    
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
                         Creado
                     </th>
@@ -177,12 +191,51 @@
                       </div>
                     </td>
                     
-                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
-                      <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900">
-                        <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 "></span>
-                        {{$subscripciones[$cont]}}
+                    {{-- <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
+                      <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900" id="texto-activo">
+                        <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 " id="marco-activo"></span>
+                        @php
+                            if ($subscripciones[$cont] == "active")
+                            {
+                              $status2 = "Activo";
+                            }else if($subscripciones[$cont] == "canceled")
+                            {
+                              $status2 = "Cancelado";
+                            }
+                        @endphp
+                           <span class="relative text-center"> {{$status2}} </span>
                       </span>
+                    </td> --}}
+                    @php
+                        $true2 = true;
+                        $statusok2 = "Activo";
+                        $statusnot2 = "Cancelada";
+                      if ($invoice->status == "active")
+                      {
+                        $true2 = $true2;
+                      }else if($subscripciones[$cont] == "canceled")
+                      {
+                        $true2 = !$true2;
+                      }
+                    
+                      @endphp
+
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200 " x-data="{show2: '{{$true2}}'}">
+                      <template x-if="show2">
+                        <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900 " id="texto-pagado">
+                          <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 " id="texto-marco-pagado"></span>
+                          <span class="relative text-center" > {{$statusok2}} </span>        
+                        </span>
+                      </template>
+                      <template x-if="!show2">
+                        <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-red-900 " id="texto-pagado">
+                          <span aria-hidden class="absolute inset-0 text-center bg-red-200 rounded-full opacity-50 " id="texto-marco-pagado"></span>
+                            <span class="relative text-center" > {{$statusnot2}}  </span>        
+                        </span>
+                      </template> 
                     </td>
+
+                    
 
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <span class="capitalize">{{ date('d/m/Y',$invoices->data[$cont]->lines->data[0]->period->start)}}</span>
@@ -211,4 +264,8 @@
 {{-- @foreach ($subscripciones as $subscripcion)
     {{$subscripcion}}<br>
 @endforeach --}}
+
+
+
+
 </x-app-layout>
