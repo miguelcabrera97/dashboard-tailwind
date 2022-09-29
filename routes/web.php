@@ -57,37 +57,47 @@ Route::get('/facturacion', function(){
       );
     $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
 
-
     $responses = $stripe->subscriptions->all( ['customer' => ''.$idcreado->id_stripe.''] );
     $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
-    $subs=$stripe->subscriptions->all();
+    $cancel=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'', 'status'=>'canceled']);
+    $active=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'']);
     //return dd($invoices->data[1]->lines->data[0]->period->end);
-    $cont2=intval( sizeof($invoices->data)) ;
+    $cont2=intval(sizeof($cancel->data));
+    $cont3=intval(sizeof($active->data));
     $sub = array();
    
-   
-    dd($stripe->subscriptions->all());
-   return 'Hola';
-    
+    //dd($cancel, $active);
+    //return 'Hola';
     
     $start = array();
     $end = array();
-    $sub = array();
+    $activas = array();
+    $canceladas = array();
 
     $cont = intval( sizeof($invoices->data)) ;
-    for ($i=0; $i < $cont  ; $i++) { 
+    for ($i=0; $i < $cont; $i++) { 
         $start[$i] =  $invoices->data[$i]->lines->data[0]->period->start;
       
         $end[$i] =  $invoices->data[$i]->lines->data[0]->period->end;
         
-        $sub[$i] = $subs->data[$i]->status;
+        
+
+        
 
         //$status[$i] = $subs->data[$i]->status;
+    };
+
+    for($i=0; $i<$cont2; $i++){
+      $canceladas[$i] = $cancel->data[$i]->status;
     }
-;
+
+    for($i=0; $i<$cont3; $i++){
+      $activas[$i] = $active->data[$i]->status;
+    }
     //return $invoices;
    // return sizeof($invoices->data);
-   return view('stripe.facturacion', compact('invoices','end','start'));
+   
+   return view('stripe.facturacion', compact('invoices','end','start', 'activas', 'canceladas'));
 })->name('facturacion');
 
 
@@ -128,8 +138,7 @@ Route::post('/cancelar', function(Request $request){
 Route::get('/sus', function(){
   
   $stripe = new \Stripe\StripeClient(
-     'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
-   );
+     'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
    $subs=$stripe->subscriptions->all();
    $cont = intval( sizeof($subs->data));
    $status = array();
