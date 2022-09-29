@@ -65,24 +65,24 @@ Route::get('/facturacion', function(){
     $cont2=intval(sizeof($cancel->data));
     $cont3=intval(sizeof($active->data));
     $sub = array();
-   
+
     //dd($cancel, $active);
     //return 'Hola';
-    
+
     $start = array();
     $end = array();
     $activas = array();
     $canceladas = array();
 
     $cont = intval( sizeof($invoices->data)) ;
-    for ($i=0; $i < $cont; $i++) { 
+    for ($i=0; $i < $cont; $i++) {
         $start[$i] =  $invoices->data[$i]->lines->data[0]->period->start;
-      
-        $end[$i] =  $invoices->data[$i]->lines->data[0]->period->end;
-        
-        
 
-        
+        $end[$i] =  $invoices->data[$i]->lines->data[0]->period->end;
+
+
+
+
 
         //$status[$i] = $subs->data[$i]->status;
     };
@@ -94,10 +94,13 @@ Route::get('/facturacion', function(){
     for($i=0; $i<$cont3; $i++){
       $activas[$i] = $active->data[$i]->status;
     }
+
+     $suscripciones = array_merge($canceladas,$activas);
+   // dd($suscripciones);
     //return $invoices;
    // return sizeof($invoices->data);
-   
-   return view('stripe.facturacion', compact('invoices','end','start', 'activas', 'canceladas'));
+
+   return view('stripe.facturacion', compact('invoices','end','start', 'suscripciones'));
 })->name('facturacion');
 
 
@@ -124,7 +127,7 @@ Route::get('/pago', function(){
 
 
 Route::post('/cancelar', function(Request $request){
-  
+
      $stripe = new \Stripe\StripeClient(
      'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
    );
@@ -136,7 +139,7 @@ Route::post('/cancelar', function(Request $request){
 })->name('cancelar');
 
 Route::get('/sus', function(){
-  
+
   $stripe = new \Stripe\StripeClient(
      'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
    $subs=$stripe->subscriptions->all();
@@ -148,5 +151,5 @@ Route::get('/sus', function(){
    //return $cont;
    return $status;
   // return view('stripe.suscripcion', compact('subs', 'status'));
-  
+
 });
