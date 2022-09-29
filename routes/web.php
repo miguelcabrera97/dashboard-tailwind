@@ -94,10 +94,13 @@ Route::get('/facturacion', function(){
     for($i=0; $i<$cont3; $i++){
       $activas[$i] = $active->data[$i]->status;
     }
+
+    $subscripciones = array_merge($canceladas, $activas);
+    //dd($suscripciones);
     //return $invoices;
    // return sizeof($invoices->data);
    
-   return view('stripe.facturacion', compact('invoices','end','start', 'activas', 'canceladas'));
+   return view('stripe.facturacion', compact('invoices','end','start', 'subscripciones'));
 })->name('facturacion');
 
 
