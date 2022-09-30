@@ -125,16 +125,15 @@ Route::get('/pago', function(){
       return redirect()->away(''.$pago->url.'');
 });
 
-
 Route::post('/cancelar', function(Request $request){
-
-     $stripe = new \Stripe\StripeClient(
-     'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
-   );
-   $stripe->subscriptions->cancel(
-     ''.$request->sub.'',
-     []
-   );
+  //dd($request->sub);
+  $stripe = new \Stripe\StripeClient(
+    'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
+  );
+  $stripe->subscriptions->cancel(
+    ''.$request->sub.'',
+    []
+  );
    return view('pages/dashboard/dashboard');
 })->name('cancelar');
 

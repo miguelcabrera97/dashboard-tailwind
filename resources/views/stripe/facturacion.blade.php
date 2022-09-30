@@ -164,6 +164,9 @@
                       Numero de Factura
                     </th>
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
+                      Acciones
+                    </th>
+                    <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
                         Estado
                     </th>
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
@@ -189,6 +192,17 @@
                           {{$invoices->data[$cont]->subscription}}
                         </p>
                       </div>
+                    </td>
+
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
+                      <span class="capitalize">
+                        <form action="/cancelar" method="POST">
+                          @csrf
+                          <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
+                          <button type="submit">Cancelar</button>
+                        </form>
+
+                      </span>
                     </td>
                     
                     {{-- <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
