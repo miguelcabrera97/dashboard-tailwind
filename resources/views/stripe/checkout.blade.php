@@ -9,7 +9,7 @@
         $informativoanual  = 'dashboard';
     @endphp
 
-      <main class="max-w-6xl px-8 pt-10 mx-auto pb-36">
+<main class="max-w-6xl px-8 pt-10 mx-auto pb-36" x-data="{ annual: false }">
 
          <div class="max-w-md mx-auto mb-10 text-center">
             <h1 class="mb-6 text-4xl font-semibold lg:text-5xl"><span class="text-indigo-600">Selecciona tu </span> Plan</h1>
