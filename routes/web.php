@@ -11,6 +11,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 
 Route::redirect('/', 'login');
 
@@ -73,6 +74,10 @@ Route::get('/facturacion', function(){
     $end = array();
     $activas = array();
     $canceladas = array();
+    $descripcion = array();
+
+    $d1 =array();
+    $d2 =array();
 
     $cont = intval( sizeof($invoices->data)) ;
     for ($i=0; $i < $cont; $i++) {
@@ -89,14 +94,19 @@ Route::get('/facturacion', function(){
 
     for($i=0; $i<$cont2; $i++){
       $canceladas[$i] = $cancel->data[$i]->status;
+     
+      
     }
 
     for($i=0; $i<$cont3; $i++){
       $activas[$i] = $active->data[$i]->status;
+   
+      
     }
 
     $subscripciones = array_merge($canceladas, $activas);
-    //dd($suscripciones);
+
+    //dd($invoices);
     //return $invoices;
    // return sizeof($invoices->data);
    
@@ -150,5 +160,14 @@ Route::get('/sus', function(){
    //return $cont;
    return $status;
   // return view('stripe.suscripcion', compact('subs', 'status'));
+
+});
+
+
+Route::get('/prueba',[PagoStripeController::class,'pagoSitio'])->name('check');
+
+Route::post('/datos', function(Request $request){
+  $name= $request->name;
+  return view('stripe.checkout', compact('name'));
 
 });
