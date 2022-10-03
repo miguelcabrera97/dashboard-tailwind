@@ -41,11 +41,11 @@ class PagoStripeController extends Controller
           
           
           $producto=$stripe->products->create([
-            'name' => ''.$request->name.'',
+            'name' => 'Sitio Web Informativo Mensual '.$request->name.'',
             'description' => 'Sitio de Conectaply',
             'default_price_data'=>[
                 'currency' => 'mxn',
-                'unit_amount_decimal' => '120000',
+                'unit_amount_decimal' => '20000',
                 'recurring' => [
                 
                 "interval"=> "month",
@@ -59,14 +59,12 @@ class PagoStripeController extends Controller
             //return $producto;
           $subscripcion = $stripe->checkout->sessions->create([
             'customer' => 'cus_MWpr4MwsIGU6iX',
-            
-            'success_url' => 'https://www.google.com',
+            'success_url' => 'http://127.0.0.1:8000/facturacion',
             'cancel_url' => 'https://www.youtube.com',
             'line_items' => [
               [
                 'price' => ''.$producto->default_price.'',
                 'quantity' => 1,
-                
               ],
             ],
             'mode' => 'subscription',
