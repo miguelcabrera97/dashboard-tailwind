@@ -18,7 +18,7 @@ return new class extends Migration
             $table->float('total');
             $table->string('divisa');
             $table->string('ver');
-            $table->date('creado');
+            
             $table->string('cliente');
             $table->string('estado');
             $table->string('product_name');
