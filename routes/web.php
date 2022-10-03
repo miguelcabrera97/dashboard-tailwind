@@ -58,18 +58,19 @@ Route::get('/facturacion', function(){
       );
     $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
 
-    $responses = $stripe->subscriptions->all( ['customer' => ''.$idcreado->id_stripe.''] );
+    $productos = $stripe->products->all([]);
+
     $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
     $cancel=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'', 'status'=>'canceled']);
     $active=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'']);
     //return dd($invoices->data[1]->lines->data[0]->period->end);
     $cont2=intval(sizeof($cancel->data));
     $cont3=intval(sizeof($active->data));
-    $sub = array();
+    $cont4=intval(sizeof($productos));
 
     //dd($cancel, $active);
     //return 'Hola';
-
+    $prod = array();
     $start = array();
     $end = array();
     $activas = array();
@@ -104,12 +105,20 @@ Route::get('/facturacion', function(){
       
     }
 
+     for($i=0; $i<$cont4; $i++){
+       $descripcion[$i]= $productos->data[$i]->name;
+     }
+
     $subscripciones = array_merge($canceladas, $activas);
 
+    //return $descripcion;
+    //return $productos->data[0]->name;
     //dd($invoices);
+    //return $active;
+    //return $idcreado;
     //return $invoices;
-   // return sizeof($invoices->data);
-   
+    //return sizeof($invoices->data);
+    //return $productos;
    return view('stripe.facturacion', compact('invoices','end','start', 'subscripciones'));
 })->name('facturacion');
 
@@ -158,7 +167,8 @@ Route::get('/sus', function(){
     $status[$i] = $subs->data[$i]->status;
    }
    //return $cont;
-   return $status;
+   //return $subs;
+   //return $status;
   // return view('stripe.suscripcion', compact('subs', 'status'));
 
 });
@@ -167,7 +177,7 @@ Route::get('/sus', function(){
 Route::get('/prueba',[PagoStripeController::class,'pagoSitio'])->name('check');
 
 Route::post('/datos', function(Request $request){
-  $name= $request->name;
-  return view('stripe.checkout', compact('name'));
+  $nombre = $request->nombre;
+  return view('stripe.checkout', compact('nombre'));
 
 });

@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('creado');
             $table->string('cliente');
             $table->string('estado');
+            $table->string('product_name');
             $table->timestamps();
         });
     }
