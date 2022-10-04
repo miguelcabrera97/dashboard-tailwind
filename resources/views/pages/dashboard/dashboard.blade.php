@@ -159,24 +159,24 @@
 
 
         <div class="relative hover:scale-110 transition duration-200 bg-indigo-200 p-6 h-60 rounded-lg shadow-sm   inline-block align-middle ">
-
-            <div class=" flex justify-center items-center p-2 mt-2">
-                <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-headset" viewBox="0 0 16 16">
-                    <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z"/>
-                </svg>
-            </div>
-
-
-            <div class="grid grid-rows-2 text-center ">
-                <div class=" md:text-md  lg:text-xl color-black">
-                    <b> ¿Necesitas Ayuda? </b>
+           <a href="{{route('soporte')}}" >
+                <div class=" flex justify-center items-center p-2 mt-2">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="80" height="80" fill="currentColor" class="bi bi-headset" viewBox="0 0 16 16">
+                        <path d="M8 1a5 5 0 0 0-5 5v1h1a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V6a6 6 0 1 1 12 0v6a2.5 2.5 0 0 1-2.5 2.5H9.366a1 1 0 0 1-.866.5h-1a1 1 0 1 1 0-2h1a1 1 0 0 1 .866.5H11.5A1.5 1.5 0 0 0 13 12h-1a1 1 0 0 1-1-1V8a1 1 0 0 1 1-1h1V6a5 5 0 0 0-5-5z"/>
+                    </svg>
                 </div>
 
-                <div class="   lg:text-sm  text-xs">
-                    Contacta con nuestro equipo de soporte
-                </div>
-            </div>
 
+                <div class="grid grid-rows-2 text-center ">
+                    <div class=" md:text-md  lg:text-xl color-black">
+                        <b> ¿Necesitas Ayuda? </b>
+                    </div>
+
+                    <div class="   lg:text-sm  text-xs">
+                        Contacta con nuestro equipo de soporte
+                    </div>
+                </div>
+           </a>
 
         </div>
             <!-- Line chart (Acme Advanced) -->

@@ -95,14 +95,14 @@ Route::get('/facturacion', function(){
 
     for($i=0; $i<$cont2; $i++){
       $canceladas[$i] = $cancel->data[$i]->status;
-     
-      
+
+
     }
 
     for($i=0; $i<$cont3; $i++){
       $activas[$i] = $active->data[$i]->status;
-   
-      
+
+
     }
 
      for($i=0; $i<$cont4; $i++){
@@ -181,3 +181,7 @@ Route::post('/datos', function(Request $request){
   return view('stripe.checkout', compact('nombre'));
 
 });
+
+Route::get('/soporte', function(){
+  return view('soporte.soporte');
+})->name('soporte');
