@@ -87,10 +87,20 @@ Route::get('/facturacion', function(){
 
     for($i=0; $i<$cont2; $i++){
       $canceladas[$i] = $cancel->data[$i]->status;
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> faca67dd662892626de01779c55a9d0abc1e18ad
     }
 
     for($i=0; $i<$cont3; $i++){
       $activas[$i] = $active->data[$i]->status;
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> faca67dd662892626de01779c55a9d0abc1e18ad
     }
 
      for($i=0; $i<$cont4; $i++){
@@ -130,4 +140,13 @@ Route::get('/prueba',[PagoStripeController::class,'pagoSitio'])->name('check');
 Route::post('/datos', function(Request $request){
   $nombre = $request->nombre;
   return view('stripe.checkout', compact('nombre'));
+<<<<<<< HEAD
 });
+=======
+
+});
+
+Route::get('/soporte', function(){
+  return view('soporte.soporte');
+})->name('soporte');
+>>>>>>> faca67dd662892626de01779c55a9d0abc1e18ad

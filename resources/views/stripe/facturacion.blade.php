@@ -77,28 +77,28 @@
                     {
                       $true = $true;
                     }
-                   
 
-                    
+
+
                    @endphp
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200" x-data="{show: '{{$true}}'}">
 
-                      
-                   
+
+
                       <template x-if="show">
                         <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900 " id="texto-pagado">
                           <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 " id="texto-marco-pagado"></span>
-                          <span class="relative text-center" > Pagado </span>        
+                          <span class="relative text-center" > Pagado </span>
                         </span>
                       </template>
                       <template x-if="!show">
                         <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-red-900 " id="texto-pagado">
                           <span aria-hidden class="absolute inset-0 text-center bg-red-200 rounded-full opacity-50 " id="texto-marco-pagado"></span>
-                            <span class="relative text-center" > Pendiente </span>        
+                            <span class="relative text-center" > Pendiente </span>
                         </span>
-                      </template> 
-                               
-                    </td> 
+                      </template>
+
+                    </td>
 
                     <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 ">
 
@@ -152,7 +152,7 @@
 
             <br><br><br>
 
-            
+
              {{-- TERMINA TABLA DE PAGOS --}}
 
              {{-- COMIENZA TABLA DE SUSCRIPCIONES --}}
@@ -176,15 +176,15 @@
                         Finaliza
                     </th>
                   </tr>
-                  
+
                 </thead>
                 <tbody>
 
                   @php
-                    $cont = 0;  
-                    $cont2 = 0   
+                    $cont = 0;
+                    $cont2 = 0
                   @endphp
-                 @foreach ($invoices as $invoice) 
+                 @foreach ($invoices as $invoice)
                   <tr>
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <div class="text-center">
@@ -204,7 +204,7 @@
 
                       </span>
                     </td>
-                    
+
                     {{-- <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900" id="texto-activo">
                         <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 " id="marco-activo"></span>
@@ -231,25 +231,25 @@
                       {
                         $true2 = !$true2;
                       }
-                    
+
                       @endphp
 
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200 " x-data="{show2: '{{$true2}}'}">
                       <template x-if="show2">
                         <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900 " id="texto-pagado">
                           <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 " id="texto-marco-pagado"></span>
-                          <span class="relative text-center" > {{$statusok2}} </span>        
+                          <span class="relative text-center" > {{$statusok2}} </span>
                         </span>
                       </template>
                       <template x-if="!show2">
                         <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-red-900 " id="texto-pagado">
                           <span aria-hidden class="absolute inset-0 text-center bg-red-200 rounded-full opacity-50 " id="texto-marco-pagado"></span>
-                            <span class="relative text-center" > {{$statusnot2}}  </span>        
+                            <span class="relative text-center" > {{$statusnot2}}  </span>
                         </span>
-                      </template> 
+                      </template>
                     </td>
 
-                    
+
 
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <span class="capitalize">{{ date('d/m/Y',$invoices->data[$cont]->lines->data[0]->period->start)}}</span>
@@ -257,16 +257,16 @@
 
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <span class="capitalize">{{date('d/m/Y',$invoices->data[$cont]->lines->data[0]->period->end)}}</span>
-                      
+
                     </td>
                   </tr>
                     @php
                          $cont = $cont+1;
                          $cont2 = $cont2+1;
                     @endphp
-                    @endforeach 
+                    @endforeach
 
-                    
+
                 </tbody>
               </table>
             </div>
