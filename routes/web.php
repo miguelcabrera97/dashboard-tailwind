@@ -48,7 +48,7 @@ Route::controller(SitesController::class)->group(function(){
 
 //Solo se usa uan vez
 
-//Route::get('/cargar',[TemplatesBdController::class,'templates']);
+Route::get('/cargar',[TemplatesBdController::class,'templates']);
 
 
 
@@ -111,6 +111,7 @@ Route::get('/facturacion', function(){
 
     $subscripciones = array_merge($canceladas, $activas);
 
+    //return $productos;
     //return $descripcion;
     //return $productos->data[0]->name;
     //dd($invoices);
