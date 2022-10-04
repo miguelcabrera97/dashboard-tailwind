@@ -9,31 +9,31 @@ use Illuminate\Support\Facades\Auth;
 
 class PagoStripeController extends Controller
 {
-    public function PagarMxnAnual(Request $emailuser){
-        // This is your test secret API key.
-        \Stripe\Stripe::setApiKey('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
-     //   return $emailuser->emailuser;
-        header('Content-Type: application/json');
+    // public function PagarMxnAnual(Request $emailuser){
+    //     // This is your test secret API key.
+    //     \Stripe\Stripe::setApiKey('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
+    //  //   return $emailuser->emailuser;
+    //     header('Content-Type: application/json');
 
-        $idcreado = DB::table('clientes')->where('email','=',$emailuser->emailuser)->first();
+    //     $idcreado = DB::table('clientes')->where('email','=',$emailuser->emailuser)->first();
 
         
-        $checkout_session = \Stripe\Checkout\Session::create([
-        'line_items' => [[
-            # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
-            'price' => 'price_1La0lrIouA9z8SYyz2y25JYC',
-            'quantity' => 1,
-        ]],
-        'mode' => 'subscription',
-        'customer' => ''.$idcreado->id_stripe.'',
-        'success_url' => 'https://www.google.com',
-        'cancel_url' => "https://conexioneleven.socialsystemsconnect.com/public/facturacion",
-        ]);
+    //     $checkout_session = \Stripe\Checkout\Session::create([
+    //     'line_items' => [[
+    //         # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
+    //         'price' => 'price_1La0lrIouA9z8SYyz2y25JYC',
+    //         'quantity' => 1,
+    //     ]],
+    //     'mode' => 'subscription',
+    //     'customer' => ''.$idcreado->id_stripe.'',
+    //     'success_url' => 'https://www.google.com',
+    //     'cancel_url' => "https://conexioneleven.socialsystemsconnect.com/public/facturacion",
+    //     ]);
 
 
-        return redirect()->away(''.$checkout_session->url.'');
+    //     return redirect()->away(''.$checkout_session->url.'');
 
-    }
+    // }
 
     public function pagoSitio(Request $request){
           $idcreado = DB::table('clientes')->where('email','=',$request->emailuser)->first();
@@ -50,8 +50,7 @@ class PagoStripeController extends Controller
                 
                 "interval"=> "month",
                 "interval_count"=> 1,
-                
-            ]
+                ]
             ]
             
           ]);
@@ -68,7 +67,7 @@ class PagoStripeController extends Controller
           ]);
             //return $producto;
           $subscripcion = $stripe->checkout->sessions->create([
-            'customer' => 'cus_MWpr4MwsIGU6iX',
+            'customer' => ''.$idcreado->id_stripe.'',
             'success_url' => 'http://127.0.0.1:8000/facturacion',
             'cancel_url' => 'https://www.youtube.com',
             'line_items' => [
@@ -79,17 +78,7 @@ class PagoStripeController extends Controller
             ],
             'mode' => 'subscription',
           ]);
-          //return $subscripcion;
-        //   $link=$stripe->paymentLinks->create([
-        //     'line_items' => [
-        //       [
-        //         'price' => ''.$producto->default_price.'',
-        //         'quantity' => 1,
-                
-                
-        //       ],
-        //     ],
-        //   ]);
+          
           return redirect()->away(''.$subscripcion->url.'');
     }
 }

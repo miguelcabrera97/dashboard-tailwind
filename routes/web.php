@@ -47,19 +47,17 @@ Route::controller(SitesController::class)->group(function(){
 });
 
 //Solo se usa uan vez
-
-Route::get('/cargar',[TemplatesBdController::class,'templates']);
-
+//Route::get('/cargar',[TemplatesBdController::class,'templates']);
 
 
+//Llama a la API de Stripe para mostrar las subcripciones, facturas 
 Route::get('/facturacion', function(){
-    $stripe = new \Stripe\StripeClient(
-        'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
-      );
+    //llave privada para acceder a stripe
+    $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
+    //Consulta a BD para obtener el id del cliente
     $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
-
+    //Obtiene los productos, las facturas, las suscripciones activas y canceladas. 
     $productos = $stripe->products->all([]);
-
     $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
     $cancel=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'', 'status'=>'canceled']);
     $active=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'']);
@@ -83,26 +81,16 @@ Route::get('/facturacion', function(){
     $cont = intval( sizeof($invoices->data)) ;
     for ($i=0; $i < $cont; $i++) {
         $start[$i] =  $invoices->data[$i]->lines->data[0]->period->start;
-
         $end[$i] =  $invoices->data[$i]->lines->data[0]->period->end;
-
-
-
-
-
         //$status[$i] = $subs->data[$i]->status;
     };
 
     for($i=0; $i<$cont2; $i++){
       $canceladas[$i] = $cancel->data[$i]->status;
-     
-      
     }
 
     for($i=0; $i<$cont3; $i++){
       $activas[$i] = $active->data[$i]->status;
-   
-      
     }
 
      for($i=0; $i<$cont4; $i++){
@@ -123,62 +111,23 @@ Route::get('/facturacion', function(){
    return view('stripe.facturacion', compact('invoices','end','start', 'subscripciones'));
 })->name('facturacion');
 
+//Ruta a checkout
+Route::get('/checkout', function(){return view('stripe.checkout');});
 
-Route::get('/checkout', function(){
-    return view('stripe.checkout');
-});
-
-Route::get('/Mxn-Anual/{email?}',[PagoStripeController::class, 'PagarMxnAnual'])-> name("mxn");
-
-Route::get('/pago', function(){
-    $stripe = new \Stripe\StripeClient(
-        'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
-      );
-     $pago = $stripe->paymentLinks->create([
-        'line_items' => [
-          [
-            'price' => 'price_1La0lrIouA9z8SYyz2y25JYC',
-            'quantity' => 1,
-          ],
-        ],
-      ]);
-      return redirect()->away(''.$pago->url.'');
-});
-
+// Boton para cancelar Subscripciones, recibe el id de subscripcion
 Route::post('/cancelar', function(Request $request){
-  //dd($request->sub);
-  $stripe = new \Stripe\StripeClient(
-    'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
-  );
+  $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
   $stripe->subscriptions->cancel(
     ''.$request->sub.'',
     []
   );
-   return view('pages/dashboard/dashboard');
+  return view('pages/dashboard/dashboard');
 })->name('cancelar');
 
-Route::get('/sus', function(){
-
-  $stripe = new \Stripe\StripeClient(
-     'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
-   $subs=$stripe->subscriptions->all();
-   $cont = intval( sizeof($subs->data));
-   $status = array();
-   for ($i=0; $i < $cont ; $i++) {
-    $status[$i] = $subs->data[$i]->status;
-   }
-   //return $cont;
-   //return $subs;
-   //return $status;
-  // return view('stripe.suscripcion', compact('subs', 'status'));
-
-});
-
-
+//
 Route::get('/prueba',[PagoStripeController::class,'pagoSitio'])->name('check');
 
 Route::post('/datos', function(Request $request){
   $nombre = $request->nombre;
   return view('stripe.checkout', compact('nombre'));
-
 });
