@@ -8,18 +8,17 @@ use Illuminate\Support\Facades\DB;
 class UserController extends Controller
 {
     //Muestra los usuarios registrados en el sistema
-    public function index()
-    {
+    public function index(){
         $users = DB::table('users')->get();
         return view('users.index', ['users' => $users]);
     }
 
     //Muestra los sitios creados por el usuario mediante BD
     public function show(){
-        $sites = DB::table('sitios')->get();
+        $sites = DB::table('sitios')->orderBy('id', 'desc')->get();
         return view('users.sites', ['sites' => $sites]);
     }
-
+    
     public function plantillas(){
         $templates = DB::table('templates')->get();
         return view('pages.templates.templates',['templates' => $templates]);

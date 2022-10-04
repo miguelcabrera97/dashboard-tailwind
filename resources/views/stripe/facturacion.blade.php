@@ -181,15 +181,22 @@
                 <tbody>
 
                   @php
+               
                     $cont = 0;
-                    $cont2 = 0
+                
+                   
                   @endphp
                  @foreach ($invoices as $invoice)
                   <tr>
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <div class="text-center">
                         <p class="text-gray-900 whitespace-no-wrap">
-                          {{$invoices->data[$cont]->subscription}}
+                        
+                           
+                          {{$product_name[$cont]->product_name}}
+                              
+                         
+                           
                         </p>
                       </div>
                     </td>
@@ -198,6 +205,7 @@
                       <span class="capitalize">
                         <form action="/cancelar" method="POST">
                           @csrf
+                          <input type="hidden" value="{{$product_name[$cont]->product_name}}" name="nombre">
                           <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
                           <button type="submit">Cancelar</button>
                         </form>
@@ -262,7 +270,8 @@
                   </tr>
                     @php
                          $cont = $cont+1;
-                         $cont2 = $cont2+1;
+                        
+                        // $cont_product_name = $cont_product_name +1;
                     @endphp
                     @endforeach
 

@@ -17,11 +17,9 @@ class SitesController extends Controller
             'Authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
         ],
         ]);
-    
         $templates = json_decode($response->getBody());
         return view('pages.templates.templates',compact('templates'));
     }
-
 
     //Proceso para Crear Sitio
     public function crear(Request $request){

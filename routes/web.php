@@ -16,17 +16,16 @@ use Illuminate\Support\Arr;
 Route::redirect('/', 'login');
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
-
     // Route for the getting the data feed
     Route::get('/json-data-feed', [DataFeedController::class, 'getDataFeed'])->name('json_data_feed');
-
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::fallback(function() {
         return view('pages/utility/404');
     });
 });
-
+//Muestra los sitios creados 
 Route::get('/sites',[UserController::class,'show'])->name('sites');
+//Muestra las plantillas disponibles 
 Route::get('/plantillas',[UserController::class, 'plantillas'])->name('plantillas');
 
 Route::controller(SitesController::class)->group(function(){
@@ -39,14 +38,14 @@ Route::controller(SitesController::class)->group(function(){
 
     //Ruta a Controlador para crear sitio
     Route::post('/crear','crear')->name('crear');
-
+    //Ruta para editar sitios
     Route::get('/editar/{cuenta}/{id}','editar');
-
+    //Ruta para borrar sitios
     Route::get('/delete/{site}/{id}','delete');
 
 });
 
-//Solo se usa uan vez
+//Solo se usa una vez
 //Route::get('/cargar',[TemplatesBdController::class,'templates']);
 
 
@@ -64,7 +63,7 @@ Route::get('/facturacion', function(){
     //return dd($invoices->data[1]->lines->data[0]->period->end);
     $cont2=intval(sizeof($cancel->data));
     $cont3=intval(sizeof($active->data));
-    $cont4=intval(sizeof($productos));
+    
 
     //dd($cancel, $active);
     //return 'Hola';
@@ -95,10 +94,16 @@ Route::get('/facturacion', function(){
 
     }
 
+    $sitios=DB::select('select product_name from facturacion');
+    $cont4=sizeof($sitios);
+    $product_name = array();
      for($i=0; $i<$cont4; $i++){
-       $descripcion[$i]= $productos->data[$i]->name;
+       $product_name[$i] = $sitios[$i];
      }
 
+
+
+    
     $subscripciones = array_merge($canceladas, $activas);
 
     //return $productos;
@@ -110,7 +115,7 @@ Route::get('/facturacion', function(){
     //return $invoices;
     //return sizeof($invoices->data);
     //return $productos;
-   return view('stripe.facturacion', compact('invoices','end','start', 'subscripciones'));
+   return view('stripe.facturacion', compact('invoices','end','start', 'subscripciones', 'descripcion','product_name'));
 })->name('facturacion');
 
 //Ruta a checkout
@@ -118,11 +123,13 @@ Route::get('/checkout', function(){return view('stripe.checkout');});
 
 // Boton para cancelar Subscripciones, recibe el id de subscripcion
 Route::post('/cancelar', function(Request $request){
+  
   $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
   $stripe->subscriptions->cancel(
     ''.$request->sub.'',
     []
   );
+  DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete(); 
   return view('pages/dashboard/dashboard');
 })->name('cancelar');
 
@@ -131,12 +138,13 @@ Route::get('/prueba',[PagoStripeController::class,'pagoSitio'])->name('check');
 
 Route::post('/datos', function(Request $request){
   $nombre = $request->nombre;
+  
   return view('stripe.checkout', compact('nombre'));
 
 });
 
 
-
+//Vista de soporte
 Route::get('/soporte', function(){
   return view('soporte.soporte');
 })->name('soporte');

@@ -41,7 +41,7 @@ class PagoStripeController extends Controller
             'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
           );
           $producto=$stripe->products->create([
-            'name' => 'Sitio Web Informativo Mensual '.$request->name.'',
+            'name' => ''.$request->name.'',
             'description' => 'Sitio de Conectaply',
             'default_price_data'=>[
                 'currency' => 'mxn',
