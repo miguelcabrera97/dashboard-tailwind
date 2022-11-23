@@ -6,6 +6,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PagoStripeController;
 use App\Http\Controllers\TemplatesBdController;
 use App\Http\Controllers\SitesController;
+use App\Http\Controllers\SoporteController;
 use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Auth;
@@ -23,9 +24,9 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('pages/utility/404');
     });
 });
-//Muestra los sitios creados 
+//Muestra los sitios creados
 Route::get('/sites',[UserController::class,'show'])->name('sites');
-//Muestra las plantillas disponibles 
+//Muestra las plantillas disponibles
 Route::get('/plantillas',[UserController::class, 'plantillas'])->name('plantillas');
 
 Route::controller(SitesController::class)->group(function(){
@@ -49,13 +50,13 @@ Route::controller(SitesController::class)->group(function(){
 //Route::get('/cargar',[TemplatesBdController::class,'templates']);
 
 
-//Llama a la API de Stripe para mostrar las subcripciones, facturas 
+//Llama a la API de Stripe para mostrar las subcripciones, facturas
 Route::get('/facturacion', function(){
     //llave privada para acceder a stripe
     $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
     //Consulta a BD para obtener el id del cliente
     $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
-    //Obtiene los productos, las facturas, las suscripciones activas y canceladas. 
+    //Obtiene los productos, las facturas, las suscripciones activas y canceladas.
     $productos = $stripe->products->all([]);
     $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
     $cancel=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'', 'status'=>'canceled']);
@@ -63,7 +64,7 @@ Route::get('/facturacion', function(){
     //return dd($invoices->data[1]->lines->data[0]->period->end);
     $cont2=intval(sizeof($cancel->data));
     $cont3=intval(sizeof($active->data));
-    
+
 
     //dd($cancel, $active);
     //return 'Hola';
@@ -103,7 +104,7 @@ Route::get('/facturacion', function(){
 
 
 
-    
+
     $subscripciones = array_merge($canceladas, $activas);
 
     //return $productos;
@@ -123,13 +124,13 @@ Route::get('/checkout', function(){return view('stripe.checkout');});
 
 // Boton para cancelar Subscripciones, recibe el id de subscripcion
 Route::post('/cancelar', function(Request $request){
-  
+
   $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
   $stripe->subscriptions->cancel(
     ''.$request->sub.'',
     []
   );
-  DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete(); 
+  DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete();
   return view('pages/dashboard/dashboard');
 })->name('cancelar');
 
@@ -138,13 +139,14 @@ Route::get('/prueba',[PagoStripeController::class,'pagoSitio'])->name('check');
 
 Route::post('/datos', function(Request $request){
   $nombre = $request->nombre;
-  
+
   return view('stripe.checkout', compact('nombre'));
 
 });
 
 
 //Vista de soporte
-Route::get('/soporte', function(){
-  return view('soporte.soporte');
-})->name('soporte');
+// Route::get('/soporte', function(){
+//   return view('soporte.soporte');
+// })->name('soporte');
+Route::get('/soporte',[SoporteController::class,'sitios'])->name('soporte');
