@@ -150,3 +150,4 @@ Route::post('/datos', function(Request $request){
 //   return view('soporte.soporte');
 // })->name('soporte');
 Route::get('/soporte',[SoporteController::class,'sitios'])->name('soporte');
+Route::get('/tickets',[SoporteController::class,'ticket'])->name('tickets');

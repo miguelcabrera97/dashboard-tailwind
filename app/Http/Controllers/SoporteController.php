@@ -11,4 +11,10 @@ class SoporteController extends Controller
          $sitelist = DB::table('sitios')->where('email', Auth::user()->email)->get();
          return view('soporte.soporte', ['sitelist' => $sitelist]);
     }
+
+    public function ticket()
+    {
+        return view('soporte.tickets');
+    }
+
 }
