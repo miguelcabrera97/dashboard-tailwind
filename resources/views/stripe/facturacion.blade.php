@@ -161,7 +161,7 @@
                 <thead>
                   <tr>
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
-                      Numero de Factura
+                      Nombre Del Sitio
                     </th>
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
                       Acciones
@@ -193,8 +193,8 @@
                         <p class="text-gray-900 whitespace-no-wrap">
                         
                            
+                          
                           {{$product_name[$cont]->product_name}}
-                              
                          
                            
                         </p>
@@ -205,7 +205,7 @@
                       <span class="capitalize">
                         <form action="/cancelar" method="POST">
                           @csrf
-                          <input type="hidden" value="{{$product_name[$cont]->product_name}}" name="nombre">
+                          <input type="hidden" value="" name="nombre">
                           <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
                           <button type="submit">Cancelar</button>
                         </form>

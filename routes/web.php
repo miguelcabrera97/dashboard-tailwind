@@ -47,7 +47,7 @@ Route::controller(SitesController::class)->group(function(){
 });
 
 //Solo se usa una vez
-//Route::get('/cargar',[TemplatesBdController::class,'templates']);
+Route::get('/cargar',[TemplatesBdController::class,'templates']);
 
 
 //Llama a la API de Stripe para mostrar las subcripciones, facturas
@@ -64,7 +64,7 @@ Route::get('/facturacion', function(){
     //return dd($invoices->data[1]->lines->data[0]->period->end);
     $cont2=intval(sizeof($cancel->data));
     $cont3=intval(sizeof($active->data));
-
+    
 
     //dd($cancel, $active);
     //return 'Hola';
@@ -95,7 +95,8 @@ Route::get('/facturacion', function(){
 
     }
 
-    $sitios=DB::select('select product_name from facturacion');
+    $sitios=DB::select('select product_name from facturacion order by id desc');
+    //return $sitios;
     $cont4=sizeof($sitios);
     $product_name = array();
      for($i=0; $i<$cont4; $i++){
@@ -106,7 +107,7 @@ Route::get('/facturacion', function(){
 
 
     $subscripciones = array_merge($canceladas, $activas);
-
+     //return $product_name;
     //return $productos;
     //return $descripcion;
     //return $productos->data[0]->name;
@@ -130,7 +131,7 @@ Route::post('/cancelar', function(Request $request){
     ''.$request->sub.'',
     []
   );
-  DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete();
+  //DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete();
   return view('pages/dashboard/dashboard');
 })->name('cancelar');
 
