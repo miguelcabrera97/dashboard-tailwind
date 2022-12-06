@@ -81,6 +81,7 @@
                       <form class="mr-5" action="/datos" method="post">
                         @csrf
                         <input type="hidden" value="{{$site->nombre}}" name="nombre">
+                        <input type="hidden" value="{{$site->siteid}}" name="siteid">
                         <button class="flex items-center p-3 px-4 text-white duration-300 bg-green-600 rounded-md cursor-pointer " type="submit">Publicar</button>
                       </form>
                       <a class="flex items-center p-3 px-4 mr-5 text-white duration-300 rounded-md cursor-pointer bg-violet-600 " href="/editar/{{Auth::user()->email}}/{{$site->siteid}}">Editar</a>

@@ -95,7 +95,7 @@ Route::get('/facturacion', function(){
 
     }
 
-    $sitios=DB::select('select product_name from facturacion order by id desc');
+    $sitios=DB::select('select product_name from facturacion');
     //return $sitios;
     $cont4=sizeof($sitios);
     $product_name = array();
@@ -124,19 +124,10 @@ Route::get('/facturacion', function(){
 Route::get('/checkout', function(){return view('stripe.checkout');});
 
 // Boton para cancelar Subscripciones, recibe el id de subscripcion
-Route::post('/cancelar', function(Request $request){
-
-  $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
-  $stripe->subscriptions->cancel(
-    ''.$request->sub.'',
-    []
-  );
-  //DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete();
-  return view('pages/dashboard/dashboard');
-})->name('cancelar');
+Route::post('/cancelar', [PagoStripeController::class,'cancelarSuscripcion'])->name('cancelar');
 
 //
-Route::get('/prueba',[PagoStripeController::class,'pagoSitio'])->name('check');
+Route::get('/checkout',[PagoStripeController::class,'pagoSitio'])->name('check');
 
 Route::post('/datos', function(Request $request){
   $nombre = $request->nombre;

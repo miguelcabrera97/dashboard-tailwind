@@ -68,7 +68,7 @@ class PagoStripeController extends Controller
             //return $producto;
           $subscripcion = $stripe->checkout->sessions->create([
             'customer' => ''.$idcreado->id_stripe.'',
-            'success_url' => 'http://127.0.0.1:8000/facturacion',
+            'success_url' => 'http://127.0.0.1:8000/facturacion',// https://api.duda.co/api/sites/multiscreen/publish/{site_name}0
             'cancel_url' => 'https://www.youtube.com',
             'line_items' => [
               [
@@ -80,5 +80,16 @@ class PagoStripeController extends Controller
           ]);
           
           return redirect()->away(''.$subscripcion->url.'');
+    }
+
+    public function cancelarSuscripcion(Request $request){
+        $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
+        $stripe->subscriptions->cancel(
+          ''.$request->sub.'',
+          []
+        );
+        //DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete();
+        return view('pages/dashboard/dashboard');
+    
     }
 }
