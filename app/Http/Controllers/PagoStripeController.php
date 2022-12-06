@@ -58,7 +58,7 @@ class PagoStripeController extends Controller
           DB::table('facturacion')->insert([
             ['total' => '2000',
              'divisa' => 'mxn',
-             'ver' => 'nose',
+             
              
              'cliente' => ''.$idcreado->id_stripe.'',
              'estado' => 'nose',
