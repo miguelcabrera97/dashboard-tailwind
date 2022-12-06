@@ -126,6 +126,10 @@ Route::get('/checkout', function(){return view('stripe.checkout');});
 // Boton para cancelar Subscripciones, recibe el id de subscripcion
 Route::post('/cancelar', [PagoStripeController::class,'cancelarSuscripcion'])->name('cancelar');
 
+
+Route::post('/pausar', [PagoStripeController::class,'pausarSuscripcion'])->name('pausar');
+
+
 //
 Route::get('/checkout',[PagoStripeController::class,'pagoSitio'])->name('check');
 

@@ -213,6 +213,18 @@
                       </span>
                     </td>
 
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
+                      <span class="capitalize">
+                        <form action="/pausar" method="POST">
+                          @csrf
+                          <input type="hidden" value="" name="nombre">
+                          <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
+                          <button type="submit">Pausar</button>
+                        </form>
+
+                      </span>
+                    </td>
+
                     {{-- <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900" id="texto-activo">
                         <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 " id="marco-activo"></span>
