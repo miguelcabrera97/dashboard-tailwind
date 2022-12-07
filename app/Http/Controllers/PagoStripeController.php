@@ -94,15 +94,21 @@ class PagoStripeController extends Controller
     }
 
     public function pausarSuscripcion(Request $request){
-      // Set your secret key. Remember to switch to your live secret key in production.
-      // See your keys here: https://dashboard.stripe.com/apikeys
+      
       $stripe= new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
-
-      $stripe=\Stripe\Subscription::update(
+      
+      $stripe->subscriptions->update(
         ''.$request->sub.'',
         [
-          'pause_collection' => '',
-        ]
+          'pause_collection' => ['behavior' => 'keep_as_draft']
+        ],
+        
       );
-          }
+
+      // DB::table('facturacion')->insert([
+      //   [
+      //     'estado' => 'Pausado'
+      //   ]]);
+      //     }
+}
 }
