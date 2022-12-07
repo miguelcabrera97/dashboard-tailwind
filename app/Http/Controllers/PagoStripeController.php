@@ -7,33 +7,7 @@ use Illuminate\Support\Facades\DB;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\Auth;
 
-class PagoStripeController extends Controller
-{
-    // public function PagarMxnAnual(Request $emailuser){
-    //     // This is your test secret API key.
-    //     \Stripe\Stripe::setApiKey('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
-    //  //   return $emailuser->emailuser;
-    //     header('Content-Type: application/json');
-
-    //     $idcreado = DB::table('clientes')->where('email','=',$emailuser->emailuser)->first();
-
-        
-    //     $checkout_session = \Stripe\Checkout\Session::create([
-    //     'line_items' => [[
-    //         # Provide the exact Price ID (e.g. pr_1234) of the product you want to sell
-    //         'price' => 'price_1La0lrIouA9z8SYyz2y25JYC',
-    //         'quantity' => 1,
-    //     ]],
-    //     'mode' => 'subscription',
-    //     'customer' => ''.$idcreado->id_stripe.'',
-    //     'success_url' => 'https://www.google.com',
-    //     'cancel_url' => "https://conexioneleven.socialsystemsconnect.com/public/facturacion",
-    //     ]);
-
-
-    //     return redirect()->away(''.$checkout_session->url.'');
-
-    // }
+class PagoStripeController extends Controller {
 
     public function pagoSitio(Request $request){
           $idcreado = DB::table('clientes')->where('email','=',$request->emailuser)->first();
@@ -58,17 +32,17 @@ class PagoStripeController extends Controller
           DB::table('facturacion')->insert([
             ['total' => '2000',
              'divisa' => 'mxn',
-             'ver' => 'nose',
+             
              
              'cliente' => ''.$idcreado->id_stripe.'',
-             'estado' => 'nose',
+             'estado' => 'Activa',
              'product_name' => ''.$producto->name.'',
             ]
           ]);
             //return $producto;
           $subscripcion = $stripe->checkout->sessions->create([
             'customer' => ''.$idcreado->id_stripe.'',
-            'success_url' => 'http://127.0.0.1:8000/facturacion',
+            'success_url' => 'http://127.0.0.1:8000/facturacion',// https://api.duda.co/api/sites/multiscreen/publish/{site_name}0
             'cancel_url' => 'https://www.youtube.com',
             'line_items' => [
               [
@@ -78,7 +52,99 @@ class PagoStripeController extends Controller
             ],
             'mode' => 'subscription',
           ]);
-          
           return redirect()->away(''.$subscripcion->url.'');
+    }
+
+    public function cancelarSuscripcion(Request $request){
+        $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
+        $stripe->subscriptions->cancel(
+          ''.$request->sub.'',
+          []
+        );
+        //DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete();
+        return view('pages/dashboard/dashboard');
+    
+    }
+
+    public function pausarSuscripcion(Request $request){
+      
+      $stripe= new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
+      
+      $stripe->subscriptions->update(
+        ''.$request->sub.'',
+        [
+          'pause_collection' => ['behavior' => 'keep_as_draft']
+        ],
+        
+      );
+
+      // DB::table('facturacion')->insert([
+      //   [
+      //     'estado' => 'Pausado'
+      //   ]]);
+      //     }
+    }
+
+    public function reanudarSuscripcion(Request $request){
+      $stripe= new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
+      $stripe->subscriptions->update(
+        ''.$request->sub.'',
+        [
+          'pause_collection' => '',
+        ],
+        
+      );
+
+      // DB::table('facturacion')->insert([
+      //   [
+      //     'estado' => 'Activa'
+      //   ]]);
+      //     }
+    }
+
+    public function facturacion(){
+        //llave privada para acceder a stripe
+        $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
+        //Consulta a BD para obtener el id del cliente
+        $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
+        //Obtiene los productos, las facturas, las suscripciones activas y canceladas.
+        $productos = $stripe->products->all([]);
+        $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
+        $cancel=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'', 'status'=>'canceled']);
+        $active=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'']);
+    
+        $cont2=intval(sizeof($cancel->data));
+        $cont3=intval(sizeof($active->data));
+    
+        $start = array();
+        $end = array();
+        $activas = array();
+        $canceladas = array();
+    
+        $cont = intval( sizeof($invoices->data)) ;
+        for ($i=0; $i < $cont; $i++) {
+            $start[$i] =  $invoices->data[$i]->lines->data[0]->period->start;
+            $end[$i] =  $invoices->data[$i]->lines->data[0]->period->end;
+            //$status[$i] = $subs->data[$i]->status;
+        };
+    
+        for($i=0; $i<$cont2; $i++){
+          $canceladas[$i] = $cancel->data[$i]->status;
+        }
+    
+        for($i=0; $i<$cont3; $i++){
+          $activas[$i] = $active->data[$i]->status;
+        }
+    
+        $sitios=DB::select('select product_name from facturacion');
+        $cont4=sizeof($sitios);
+        $product_name = array();
+         for($i=0; $i<$cont4; $i++){
+           $product_name[$i] = $sitios[$i];
+         }
+    
+        $subscripciones = array_merge($canceladas, $activas);
+    
+       return view('stripe.facturacion', compact('invoices','end','start', 'subscripciones','product_name'));
     }
 }

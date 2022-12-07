@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->float('total');
             $table->string('divisa');
-            $table->string('ver');
+            
             
             $table->string('cliente');
             $table->string('estado');
