@@ -52,15 +52,17 @@ Route::controller(PagoStripeController::class)->group(function(){
     //Boton para pausar Subscripciones, recibe el id de subscripcion
     Route::post('/pausar','pausarSuscripcion')->name('pausar');
     //Boton para reactivar Subscripciones, recibe el id de subscripcion
-    Route::post('/reanudar','reanuadarSuscripcion')->name('reanudar');
+    Route::post('/reanudar','reanudarSuscripcion')->name('reanudar');
     //Ruta a checkout, recibe el id del sitio  y nombre
-    Route::post('/checkout','pagoSitio')->name('check');
+    Route::get('/checkout','pagoSitio')->name('check');
 });
 
 Route::post('/datos', function(Request $request){
   $nombre = $request->nombre;
-  return view('stripe.checkout', compact('nombre'));
+  $id = $request->siteid;
+  return view('stripe.checkout', compact('nombre', 'id'));
 });
+
 
 
 //Vista de soporte

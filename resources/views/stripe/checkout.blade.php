@@ -61,8 +61,6 @@
                          <span class="text-gray-500">/ Mes <span x-cloak x-show="annual">(billed annually)</span></span>
                     </p>
                 </div>
-
-
               </div>
 
               <ul class="font-medium text-gray-500 mb-7">
@@ -125,7 +123,7 @@
                 <form action="{{route('check')}}" method="GET" >
                     <input type="hidden" value="{{Auth::user()->email}}" name="emailuser">
                     <input type="hidden" value="{{$nombre}}" name="name">
-                    
+                    <input type="hidden" value="{{$id}}" name="id">
                     <button href="#/" class="flex items-center justify-center w-full px-4 py-5 text-xl text-center text-white transition duration-300 ease-in-out transform bg-indigo-600 rounded-xl hover:-translate-y-1 hover:scale-110 hover:bg-blue-600 hover:rounded-2xl ">
                         Elegir Mensual
                         <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />

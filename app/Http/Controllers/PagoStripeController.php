@@ -14,6 +14,7 @@ class PagoStripeController extends Controller {
           $stripe = new \Stripe\StripeClient(
             'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
           );
+          
           $producto=$stripe->products->create([
             'name' => ''.$request->name.'',
             'description' => 'Sitio de Conectaply',
@@ -29,20 +30,20 @@ class PagoStripeController extends Controller {
             
           ]);
           
-          DB::table('facturacion')->insert([
-            ['total' => '2000',
-             'divisa' => 'mxn',
+           DB::table('facturacion')->insert([
+             ['total' => '2000',
+              'divisa' => 'mxn',
              
              
-             'cliente' => ''.$idcreado->id_stripe.'',
-             'estado' => 'Activa',
-             'product_name' => ''.$producto->name.'',
-            ]
-          ]);
+              'cliente' => ''.$idcreado->id_stripe.'',
+              'estado' => 'Activa',
+              'product_name' => ''.$producto->name.'',
+             ]
+           ]);
             //return $producto;
           $subscripcion = $stripe->checkout->sessions->create([
             'customer' => ''.$idcreado->id_stripe.'',
-            'success_url' => 'http://127.0.0.1:8000/facturacion',// https://api.duda.co/api/sites/multiscreen/publish/{site_name}0
+            'success_url' => 'http://127.0.0.1:8000',// https://api.duda.co/api/sites/multiscreen/publish/{site_name}0
             'cancel_url' => 'https://www.youtube.com',
             'line_items' => [
               [
@@ -52,6 +53,7 @@ class PagoStripeController extends Controller {
             ],
             'mode' => 'subscription',
           ]);
+          //return $subscripcion;
           return redirect()->away(''.$subscripcion->url.'');
     }
 
@@ -78,11 +80,11 @@ class PagoStripeController extends Controller {
         
       );
 
-      // DB::table('facturacion')->insert([
-      //   [
-      //     'estado' => 'Pausado'
-      //   ]]);
-      //     }
+      // $update= DB::update(
+      //   'update facturacion set estado = Pausados where id_sub = ?',
+      //   [''.$request->sub.'']
+      // );
+      return view('pages/dashboard/dashboard');
     }
 
     public function reanudarSuscripcion(Request $request){
@@ -112,7 +114,12 @@ class PagoStripeController extends Controller {
         $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
         $cancel=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'', 'status'=>'canceled']);
         $active=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'']);
-    
+        $contador_id_Suscripcion=sizeof($active->data);
+        $id_subs= array();
+        //return $contador_id_Suscripcion;
+        for($i=0; $i<$contador_id_Suscripcion; $i++){
+           $id_subs[$i]= $active->data[$i]->id;
+        }
         $cont2=intval(sizeof($cancel->data));
         $cont3=intval(sizeof($active->data));
     
@@ -144,7 +151,7 @@ class PagoStripeController extends Controller {
          }
     
         $subscripciones = array_merge($canceladas, $activas);
-    
-       return view('stripe.facturacion', compact('invoices','end','start', 'subscripciones','product_name'));
+         
+       return view('stripe.facturacion', compact('id_subs','invoices','end','start', 'subscripciones','product_name'));
     }
 }
