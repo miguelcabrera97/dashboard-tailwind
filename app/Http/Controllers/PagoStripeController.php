@@ -151,7 +151,7 @@ class PagoStripeController extends Controller {
          }
     
         $subscripciones = array_merge($canceladas, $activas);
-         
+        return dd($active);
        return view('stripe.facturacion', compact('id_subs','invoices','end','start', 'subscripciones','product_name'));
     }
 }
