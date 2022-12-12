@@ -67,9 +67,15 @@ Route::post('/publish',[SitesController::class,'publish'])->name('publicar');
 Route::get('prueba/{sitioId}', function ($sitioId) {
     return view('users.publicando_sitio', compact('sitioId'));
 });
+
+Route::post('/despublish',[SitesController::class,'despublish'])->name('despublicar');
 //Vista de soporte
 // Route::get('/soporte', function(){
 //   return view('soporte.soporte');
 // })->name('soporte');
 Route::get('/soporte',[SoporteController::class,'sitios'])->name('soporte');
 Route::get('/tickets',[SoporteController::class,'ticket'])->name('tickets');
+
+Route::get('/loading', function(){
+    return view('users.loading');
+});

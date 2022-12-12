@@ -1,7 +1,7 @@
 
 <x-app-layout>
-  
-    
+
+
 
   <div class="container px-4 mx-auto sm:px-8">
         <div class="py-8">
@@ -34,10 +34,10 @@
                       Acciones
                     </th>
                   </tr>
-                  
+
                 </thead>
                 <tbody>
-                 @foreach ($sites as $site) 
+                 @foreach ($sites as $site)
                   <tr>
                     <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                         <div class="ml-3">
@@ -51,7 +51,7 @@
                     <td class="px-5 py-5 text-sm bg-white border-b border-gray-200">
                         <p class="text-gray-900 whitespace-no-wrap">
                             {{$site->siteid}}
-                        </p> 
+                        </p>
                     </td>
 
 
@@ -85,12 +85,18 @@
                         <button class="flex items-center p-3 px-4 text-white duration-300 bg-green-600 rounded-md cursor-pointer " type="submit">Publicar</button>
                       </form>
                       <a class="flex items-center p-3 px-4 mr-5 text-white duration-300 rounded-md cursor-pointer bg-violet-600 " href="/editar/{{Auth::user()->email}}/{{$site->siteid}}">Editar</a>
-                      
-                      <a class="flex items-center p-3 px-4 text-white duration-300 bg-red-600 rounded-md cursor-pointer" href="/delete/{{$site->siteid}}/{{$site->id}}">Borrar Sitio</a>
-                      
+
+                      <a class="flex items-center p-3 px-4 mr-5 text-white duration-300 bg-red-600 rounded-md cursor-pointer" href="/delete/{{$site->siteid}}/{{$site->id}}">Borrar Sitio</a>
+
+                      <form action="{{route('despublicar')}}" method="POST">
+                        @csrf
+                        <input type="hidden" value="{{$site->siteid}}" name="siteid">
+                        <button class="flex items-center p-3 px-4 text-white duration-300 bg-yellow-600 rounded-md cursor-pointer ">Despublicar</button>
+                      </form>
+
                     </td>
                   </tr>
-                 @endforeach 
+                 @endforeach
                 </tbody>
               </table>
             </div>
