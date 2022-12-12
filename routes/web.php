@@ -63,8 +63,10 @@ Route::post('/datos', function(Request $request){
   return view('stripe.checkout', compact('nombre', 'id'));
 });
 
-
-
+Route::post('/publish',[SitesController::class,'publish'])->name('publicar');
+Route::get('prueba/{sitioId}', function ($sitioId) {
+    return view('users.publicando_sitio', compact('sitioId'));
+});
 //Vista de soporte
 // Route::get('/soporte', function(){
 //   return view('soporte.soporte');

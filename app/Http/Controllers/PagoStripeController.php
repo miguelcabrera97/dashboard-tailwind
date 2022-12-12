@@ -10,11 +10,12 @@ use Illuminate\Support\Facades\Auth;
 class PagoStripeController extends Controller {
 
     public function pagoSitio(Request $request){
+          //return $request->sitioId;
           $idcreado = DB::table('clientes')->where('email','=',$request->emailuser)->first();
           $stripe = new \Stripe\StripeClient(
             'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
           );
-          
+
           $producto=$stripe->products->create([
             'name' => ''.$request->name.'',
             'description' => 'Sitio de Conectaply',
@@ -22,19 +23,19 @@ class PagoStripeController extends Controller {
                 'currency' => 'mxn',
                 'unit_amount_decimal' => '20000',
                 'recurring' => [
-                
+
                 "interval"=> "month",
                 "interval_count"=> 1,
                 ]
             ]
-            
+
           ]);
-          
+
            DB::table('facturacion')->insert([
              ['total' => '2000',
               'divisa' => 'mxn',
-             
-             
+
+
               'cliente' => ''.$idcreado->id_stripe.'',
               'estado' => 'Activa',
               'product_name' => ''.$producto->name.'',
@@ -43,7 +44,7 @@ class PagoStripeController extends Controller {
             //return $producto;
           $subscripcion = $stripe->checkout->sessions->create([
             'customer' => ''.$idcreado->id_stripe.'',
-            'success_url' => 'http://127.0.0.1:8000',// https://api.duda.co/api/sites/multiscreen/publish/{site_name}0
+            'success_url' => 'http://127.0.0.1:8000/prueba/'.$request->sitioId.'',
             'cancel_url' => 'https://www.youtube.com',
             'line_items' => [
               [
@@ -65,19 +66,19 @@ class PagoStripeController extends Controller {
         );
         //DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete();
         return view('pages/dashboard/dashboard');
-    
+
     }
 
     public function pausarSuscripcion(Request $request){
-      
+
       $stripe= new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
-      
+
       $stripe->subscriptions->update(
         ''.$request->sub.'',
         [
           'pause_collection' => ['behavior' => 'keep_as_draft']
         ],
-        
+
       );
 
       // $update= DB::update(
@@ -94,7 +95,7 @@ class PagoStripeController extends Controller {
         [
           'pause_collection' => '',
         ],
-        
+
       );
 
       // DB::table('facturacion')->insert([
@@ -109,8 +110,7 @@ class PagoStripeController extends Controller {
         $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
         //Consulta a BD para obtener el id del cliente
         $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
-        //Obtiene los productos, las facturas, las suscripciones activas y canceladas.
-        $productos = $stripe->products->all([]);
+        //Obtiene las facturas, las suscripciones activas y canceladas.
         $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
         $cancel=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'', 'status'=>'canceled']);
         $active=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'']);
@@ -122,36 +122,36 @@ class PagoStripeController extends Controller {
         }
         $cont2=intval(sizeof($cancel->data));
         $cont3=intval(sizeof($active->data));
-    
+
         $start = array();
         $end = array();
         $activas = array();
         $canceladas = array();
-    
+
         $cont = intval( sizeof($invoices->data)) ;
         for ($i=0; $i < $cont; $i++) {
             $start[$i] =  $invoices->data[$i]->lines->data[0]->period->start;
             $end[$i] =  $invoices->data[$i]->lines->data[0]->period->end;
             //$status[$i] = $subs->data[$i]->status;
         };
-    
+
         for($i=0; $i<$cont2; $i++){
           $canceladas[$i] = $cancel->data[$i]->status;
         }
-    
+
         for($i=0; $i<$cont3; $i++){
           $activas[$i] = $active->data[$i]->status;
         }
-    
+
         $sitios=DB::select('select product_name from facturacion');
         $cont4=sizeof($sitios);
         $product_name = array();
          for($i=0; $i<$cont4; $i++){
            $product_name[$i] = $sitios[$i];
          }
-    
+
         $subscripciones = array_merge($canceladas, $activas);
-        return dd($active);
+        //return dd($active);
        return view('stripe.facturacion', compact('id_subs','invoices','end','start', 'subscripciones','product_name'));
     }
 }
