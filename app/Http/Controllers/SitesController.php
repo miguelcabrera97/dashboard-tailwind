@@ -40,7 +40,7 @@ class SitesController extends Controller
             'siteid' => ''.$site_name->site_name.'',
             'creado' => date('Y-m-d H:i:s'),
             'modification_date' => date('Y-m-d'),
-            'publish_status' => 'EN CONSTRUCCION', 
+            'publish_status' => 'EN CONSTRUCCION',
             'site_default_domain' => ''.$request->site_default_domain.'',
             'template' => ''.$request->template_id.'',
             'email' => ''.Auth::user()->email.''
@@ -115,5 +115,26 @@ class SitesController extends Controller
         $deleted = DB::table('sitios')->delete($id);
 
         return redirect()->action([UserController::class,'show']);
+    }
+
+    //Publicar Sitio
+    public function publish(Request $request){
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'https://api.duda.co/api/sites/multiscreen/publish/'.$request->sitioId.'', [
+        'headers' => [
+            'accept' => 'application/json',
+            'authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
+        ],
+        ]);
+
+        $response = $client->request('GET', 'https://api.duda.co/api/sites/multiscreen/'.$request->sitioId.'', [
+            'headers' => [
+              'accept' => 'application/json',
+              'authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
+            ],
+        ]);
+
+          $afectados = DB::table('sitios')->where('siteid', ''.$request->sitioId.'')->update(['publish_status'=>'PUBLICADO']);
+          return redirect()->action([UserController::class,'show']);
     }
 }
