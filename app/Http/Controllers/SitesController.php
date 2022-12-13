@@ -120,21 +120,21 @@ class SitesController extends Controller
     //Publicar Sitio
     public function publish(Request $request){
         $client = new \GuzzleHttp\Client();
-        $response = $client->request('POST', 'https://api.duda.co/api/sites/multiscreen/publish/'.$request->sitioId.'', [
+        $response = $client->request('POST', 'https://api.duda.co/api/sites/multiscreen/publish/'.$request->siteid.'', [
         'headers' => [
             'accept' => 'application/json',
             'authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
         ],
         ]);
 
-        $response = $client->request('GET', 'https://api.duda.co/api/sites/multiscreen/'.$request->sitioId.'', [
+        $response = $client->request('GET', 'https://api.duda.co/api/sites/multiscreen/'.$request->siteid.'', [
             'headers' => [
               'accept' => 'application/json',
               'authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
             ],
         ]);
 
-          $afectados = DB::table('sitios')->where('siteid', ''.$request->sitioId.'')->update(['publish_status'=>'PUBLICADO']);
+          $afectados = DB::table('sitios')->where('siteid', ''.$request->siteid.'')->update(['publish_status'=>'PUBLICADO']);
           return redirect()->action([UserController::class,'show']);
     }
 
