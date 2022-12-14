@@ -154,3 +154,6 @@ Route::get('/soporte',[SoporteController::class,'sitios'])->name('soporte');
 Route::get('/tickets',[SoporteController::class,'ticket'])->name('tickets');
 
 Route::get('/ticketSupport', function(){return view('Mail.TicketSupport');})->name('TicketMail');
+
+
+Route::post("/supportform",[SoporteController::class,"InsertDataSupport"])->name("supportform");

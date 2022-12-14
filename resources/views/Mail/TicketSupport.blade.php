@@ -23,41 +23,33 @@
 
             </div>
 
-            <div class="content__body py-8 border-b">
-              <h3 class="text-center text-2xl sm:text-3xl pt-4 mb-8 ">New version of The App<br>is finally here! 🎉</h3>
-              <p class="pt-4 leading-normal">
-                Greetings!<br><br> Check out this quick read on The App Blog about the highly anticipated new version of our app.<br><br> This means you now have an ultimate access to a new version of The App. Click the link below to read more!
-              </p>
+            <div class="content__body py-1 border-b">
+              <h3 class="text-center text-2xl sm:text-3xl pt-4"> Tu Ticket se ha creado</h3>
+              <h4 class="text-center text-2xl sm:text-3xl  mb-8"> <b> #3519845 </b></h4>
+
+              <p class="pt-4 leading-normal text-justify">
+                Estimad@  <b>{{ Auth::user()->name }}</b>
+
+                <br><br> El motivo de este correo es para informarte que hemos recibido tu consulta y hemos comenzado a trabajar en ella para darle el seguimiento
+                correcto.
+
+               <br><br> Recibirás una respesta por este medio, te pedimos estes atento la respuesta puede tardar de <b>48 - 72 Hrs hábiles</b> de acuerdo a la cantidad de sobrecarga.
+
+
               <button class="text-white text-sm tracking-wide bg-red rounded w-full my-8 p-4 ">CHECK THE NEW VERSION</button>
               <p class="text-sm">
-                Keep Rockin'!<br> Your The App team
+                 El Equipo <b>Conectaply</b><br>
+                 soporte@conectaply.com
               </p>
             </div>
 
             <div class="content__footer mt-8 text-center text-grey-darker">
-              <h3 class="text-base sm:text-lg mb-4">Thanks for using The App!</h3>
-              <p>www.theapp.io</p>
+              <h3 class="text-base sm:text-lg">Gracias por ser parte de Conectaply</h3>
+              <p> <a href="#"> www.conectaply.com </a></p>
             </div>
 
           </div>
 
-          <div class="mail__meta text-center text-sm text-grey-darker mt-8">
-
-            <div class="meta__social flex justify-center my-4">
-              <a href="#" class="flex items-center justify-center mr-4 bg-black text-white rounded-full w-8 h-8 no-underline"><i class="fab fa-facebook-f"></i></a>
-              <a href="#" class="flex items-center justify-center mr-4 bg-black text-white rounded-full w-8 h-8 no-underline"><i class="fab fa-instagram"></i></a>
-              <a href="#" class="flex items-center justify-center bg-black text-white rounded-full w-8 h-8 no-underline"><i class="fab fa-twitter"></i></a>
-            </div>
-
-            <div class="meta__help">
-              <p class="leading-loose">
-                Questions or concerns? <a href="#" class="text-grey-darkest">help@theapp.io</a>
-
-                <br> Want to quit getting updates? <a href="#" class="text-grey-darkest">Unsubscribe</a>
-              </p>
-            </div>
-
-          </div>
 
         </div>
 

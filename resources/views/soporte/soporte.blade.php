@@ -12,16 +12,16 @@
 
             </div>
 
-        <form class="w-full">
+        <form class="w-full" method="POST" action="{{route("supportform")}}">
         <div class="flex flex-wrap -mx-3 mb-6">
-
+        @csrf
 
           {{-- USUARIO EMAIL --}}
           <div class="w-full md:w-full px-3">
             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
                 Correo Electrónico
               </label>
-              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-email" type="email" placeholder="{{Auth::user()->email}}" disabled>
+              <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="suport_email" name="suport_email" type="email" placeholder="{{Auth::user()->email}}" disabled>
           </div>
         </div>
 
@@ -32,10 +32,10 @@
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <div class="mt3">
                     <div class="relative">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="pais">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="siteid_soporte">
                             Sitio Web
                         </label>
-                        <select  id="siteid_soporte" name="pais"  required class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                        <select  id="siteid_soporte" name="siteid_soporte"  required class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
                         {{-- <option value="México">México</option> --}}
                           <option value="N/A"> Ningún Sitio </option>
                            @foreach ($sitelist as $sitename)
@@ -51,13 +51,13 @@
             <div class="w-full md:w-1/2 px-3 mb-6 md:mb-0">
                 <div class="mt3">
                     <div class="relative">
-                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="pais">
+                        <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="motivo">
                            Motivo de Consulta
                         </label>
-                        <select  name="pais"  required class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
-                          <option value="1">Falla Técnica </option>
-                          <option value="2">Tienda Ecommerce</option>
-                          <option value="3">otro</option>
+                        <select  name="motivo"  required class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+                          <option value="Falla Técnica">Falla Técnica </option>
+                          <option value="Tienda Ecommerce">Tienda Ecommerce</option>
+                          <option value="Otro">otro</option>
                         </select>
 
                       </div>
@@ -67,15 +67,12 @@
 
         </div>
 
-
-
-
-          <div class="flex flex-wrap -mx-3 mb-6">
+        <div class="flex flex-wrap -mx-3 mb-6">
           <div class="w-full px-3">
-            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
+            <label class=" block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-password">
               Describe que está pasando
             </label>
-            <textarea rows="10" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
+            <textarea name="support_description" rows="10" class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500">
 
             </textarea>
           </div>
