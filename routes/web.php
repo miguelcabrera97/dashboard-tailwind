@@ -8,7 +8,7 @@ use App\Http\Controllers\TemplatesBdController;
 use App\Http\Controllers\SitesController;
 use App\Http\Controllers\SoporteController;
 use App\Http\Controllers\UserController;
-use Faker\Guesser\Name;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
@@ -24,128 +24,51 @@ Route::middleware(['auth:sanctum', 'verified'])->group(function () {
         return view('pages/utility/404');
     });
 });
-//Muestra los sitios creados
-Route::get('/sites',[UserController::class,'show'])->name('sites');
-//Muestra las plantillas disponibles
-Route::get('/plantillas',[UserController::class, 'plantillas'])->name('plantillas');
+
+Route::controller(UserController::class)->group(function(){
+    //Muestra los sitios creados
+    Route::get('/sites','show')->name('sites');
+    //Muestra las plantillas disponibles
+    Route::get('/plantillas','plantillas')->name('plantillas');
+});
 
 Route::controller(SitesController::class)->group(function(){
-
-    //Ruta a Crontolador para mostrar Plantillas Disponibles
-    //Route::get('/crearsitio','crear')->name('crearsitio');
-
-    //Ruta para mostrar Sitios que el Usuario a Creado por medio de API
-    // Route::get('/sitios/{user}',[SitesController::class, 'sitios'])->name('sitios');
-
     //Ruta a Controlador para crear sitio
     Route::post('/crear','crear')->name('crear');
     //Ruta para editar sitios
     Route::get('/editar/{cuenta}/{id}','editar');
     //Ruta para borrar sitios
     Route::get('/delete/{site}/{id}','delete');
-
 });
 
 //Solo se usa una vez
 Route::get('/cargar',[TemplatesBdController::class,'templates']);
 
-
-//Llama a la API de Stripe para mostrar las subcripciones, facturas
-Route::get('/facturacion', function(){
-    //llave privada para acceder a stripe
-    $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
-    //Consulta a BD para obtener el id del cliente
-    $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
-    //Obtiene los productos, las facturas, las suscripciones activas y canceladas.
-    $productos = $stripe->products->all([]);
-    $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
-    $cancel=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'', 'status'=>'canceled']);
-    $active=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'']);
-    //return dd($invoices->data[1]->lines->data[0]->period->end);
-    $cont2=intval(sizeof($cancel->data));
-    $cont3=intval(sizeof($active->data));
-
-
-    //dd($cancel, $active);
-    //return 'Hola';
-    $prod = array();
-    $start = array();
-    $end = array();
-    $activas = array();
-    $canceladas = array();
-    $descripcion = array();
-
-    $d1 =array();
-    $d2 =array();
-
-    $cont = intval( sizeof($invoices->data)) ;
-    for ($i=0; $i < $cont; $i++) {
-        $start[$i] =  $invoices->data[$i]->lines->data[0]->period->start;
-        $end[$i] =  $invoices->data[$i]->lines->data[0]->period->end;
-        //$status[$i] = $subs->data[$i]->status;
-    };
-
-    for($i=0; $i<$cont2; $i++){
-      $canceladas[$i] = $cancel->data[$i]->status;
-
-    }
-
-    for($i=0; $i<$cont3; $i++){
-      $activas[$i] = $active->data[$i]->status;
-
-    }
-
-    $sitios=DB::select('select product_name from facturacion order by id desc');
-    //return $sitios;
-    $cont4=sizeof($sitios);
-    $product_name = array();
-     for($i=0; $i<$cont4; $i++){
-       $product_name[$i] = $sitios[$i];
-     }
-
-
-
-
-    $subscripciones = array_merge($canceladas, $activas);
-     //return $product_name;
-    //return $productos;
-    //return $descripcion;
-    //return $productos->data[0]->name;
-    //dd($invoices);
-    //return $active;
-    //return $idcreado;
-    //return $invoices;
-    //return sizeof($invoices->data);
-    //return $productos;
-   return view('stripe.facturacion', compact('invoices','end','start', 'subscripciones', 'descripcion','product_name'));
-})->name('facturacion');
-
-//Ruta a checkout
-Route::get('/checkout', function(){return view('stripe.checkout');});
-
-// Boton para cancelar Subscripciones, recibe el id de subscripcion
-Route::post('/cancelar', function(Request $request){
-
-  $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
-  $stripe->subscriptions->cancel(
-    ''.$request->sub.'',
-    []
-  );
-  //DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete();
-  return view('pages/dashboard/dashboard');
-})->name('cancelar');
-
-//
-Route::get('/prueba',[PagoStripeController::class,'pagoSitio'])->name('check');
+Route::controller(PagoStripeController::class)->group(function(){
+    //Llama a la API de Stripe para mostrar las subcripciones, facturas
+    Route::get('/facturacion','facturacion')->name('facturacion');
+    //Boton para cancelar Subscripciones, recibe el id de subscripcion
+    Route::post('/cancelar','cancelarSuscripcion')->name('cancelar');
+    //Boton para pausar Subscripciones, recibe el id de subscripcion
+    Route::post('/pausar','pausarSuscripcion')->name('pausar');
+    //Boton para reactivar Subscripciones, recibe el id de subscripcion
+    Route::post('/reanudar','reanudarSuscripcion')->name('reanudar');
+    //Ruta a checkout, recibe el id del sitio  y nombre
+    Route::get('/checkout','pagoSitio')->name('check');
+});
 
 Route::post('/datos', function(Request $request){
   $nombre = $request->nombre;
-
-  return view('stripe.checkout', compact('nombre'));
-
+  $id = $request->siteid;
+  return view('stripe.checkout', compact('nombre', 'id'));
 });
 
+Route::post('/publish',[SitesController::class,'publish'])->name('publicar');
+Route::get('prueba/{sitioId}', function ($sitioId) {
+    return view('users.publicando_sitio', compact('sitioId'));
+});
 
+Route::post('/despublish',[SitesController::class,'despublish'])->name('despublicar');
 //Vista de soporte
 // Route::get('/soporte', function(){
 //   return view('soporte.soporte');
@@ -153,7 +76,3 @@ Route::post('/datos', function(Request $request){
 Route::get('/soporte',[SoporteController::class,'sitios'])->name('soporte');
 Route::get('/tickets',[SoporteController::class,'ticket'])->name('tickets');
 
-Route::get('/ticketSupport', function(){return view('Mail.TicketSupport');})->name('TicketMail');
-
-
-Route::post("/supportform",[SoporteController::class,"InsertDataSupport"])->name("supportform");

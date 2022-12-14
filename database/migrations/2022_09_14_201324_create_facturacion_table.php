@@ -15,10 +15,9 @@ return new class extends Migration
     {
         Schema::create('facturacion', function (Blueprint $table) {
             $table->id();
+            
             $table->float('total');
             $table->string('divisa');
-            
-            
             $table->string('cliente');
             $table->string('estado');
             $table->string('product_name');

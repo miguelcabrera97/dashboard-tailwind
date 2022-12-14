@@ -26,7 +26,7 @@ class SitesController extends Controller
         //Crea Sitio con la Plantilla Elegida
         $client = new \GuzzleHttp\Client();
         $response = $client->request('POST', 'https://api.duda.co/api/sites/multiscreen/create', [
-            'body' => '{"default_domain_prefix":"Conectaply-'.$request->nombre.'","template_id":"'.$request->template_id.'"}',
+            'body' => '{"default_domain_prefix":"'.$request->nombre.'","template_id":"'.$request->template_id.'"}',
             'headers' => [
             'Accept' => 'application/json',
             'Authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
@@ -40,7 +40,7 @@ class SitesController extends Controller
             'siteid' => ''.$site_name->site_name.'',
             'creado' => date('Y-m-d H:i:s'),
             'modification_date' => date('Y-m-d'),
-            'publish_status' => 'EN CONSTRUCCION', 
+            'publish_status' => 'EN CONSTRUCCION',
             'site_default_domain' => ''.$request->site_default_domain.'',
             'template' => ''.$request->template_id.'',
             'email' => ''.Auth::user()->email.''
@@ -114,6 +114,41 @@ class SitesController extends Controller
 
         $deleted = DB::table('sitios')->delete($id);
 
+        return redirect()->action([UserController::class,'show']);
+    }
+
+    //Publicar Sitio
+    public function publish(Request $request){
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'https://api.duda.co/api/sites/multiscreen/publish/'.$request->siteid.'', [
+        'headers' => [
+            'accept' => 'application/json',
+            'authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
+        ],
+        ]);
+
+        $response = $client->request('GET', 'https://api.duda.co/api/sites/multiscreen/'.$request->siteid.'', [
+            'headers' => [
+              'accept' => 'application/json',
+              'authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
+            ],
+        ]);
+
+          $afectados = DB::table('sitios')->where('siteid', ''.$request->siteid.'')->update(['publish_status'=>'PUBLICADO']);
+          return redirect()->action([UserController::class,'show']);
+    }
+
+    public function despublish(Request $request){
+        //return $request->siteid;
+        $client = new \GuzzleHttp\Client();
+        $response = $client->request('POST', 'https://api.duda.co/api/sites/multiscreen/unpublish/'.$request->siteid.'', [
+        'headers' => [
+            'accept' => 'application/json',
+            'authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
+        ],
+        ]);
+
+        $afectados = DB::table('sitios')->where('siteid', ''.$request->siteid.'')->update(['publish_status'=>'EN CONSTRUCCION']);
         return redirect()->action([UserController::class,'show']);
     }
 }
