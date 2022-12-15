@@ -34,13 +34,14 @@ class PagoStripeController extends Controller {
            DB::table('facturacion')->insert([
              ['total' => '2000',
               'divisa' => 'mxn',
-
-
               'cliente' => ''.$idcreado->id_stripe.'',
               'estado' => 'Activa',
               'product_name' => ''.$producto->name.'',
              ]
            ]);
+
+           DB::table('sitios')->where('pagado', false)->update(['pagado'=>true]);
+
             //return $producto;
           $subscripcion = $stripe->checkout->sessions->create([
             'customer' => ''.$idcreado->id_stripe.'',

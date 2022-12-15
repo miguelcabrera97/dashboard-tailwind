@@ -75,7 +75,12 @@
                                         </span>
                                     </td>
 
+
+
+
+
                                       @php
+
                                       $status=$site->publish_status;
                                       $cadena=strval($status);
                                       if ($cadena=="EN CONSTRUCCION") {

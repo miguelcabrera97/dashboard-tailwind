@@ -43,7 +43,8 @@ class SitesController extends Controller
             'publish_status' => 'EN CONSTRUCCION',
             'site_default_domain' => ''.$request->site_default_domain.'',
             'template' => ''.$request->template_id.'',
-            'email' => ''.Auth::user()->email.''
+            'email' => ''.Auth::user()->email.'',
+            'pagado' => false
             ],
         ]);
 
