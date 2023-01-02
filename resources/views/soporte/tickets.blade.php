@@ -41,7 +41,7 @@
                             <input class="form-checkbox h-4 w-4 text-indigo-600 transition duration-150 ease-in-out" type="checkbox" />
                           </th>
                           <th class="px-6 py-3 text-left font-medium">
-                            Name
+                              No. Ticket
                           </th>
                           <th class="px-6 py-3 text-left font-medium">
                             Author

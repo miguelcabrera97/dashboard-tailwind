@@ -40,7 +40,7 @@ class CreateNewUser implements CreatesNewUsers
                 'Content-Type' => 'application/json',
             ],
             ]);
-            
+
         $stripe = new \Stripe\StripeClient(
             'sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP'
           );
@@ -61,7 +61,7 @@ class CreateNewUser implements CreatesNewUsers
             'invoice_prefix' => $customer->invoice_prefix,
             ]);
 
-        
+
         return User::create([
             'name' => $input['name'],
             'email' => $input['email'],

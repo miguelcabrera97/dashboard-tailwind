@@ -1,4 +1,4 @@
-z|<?php
+<?php
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
@@ -13,13 +13,16 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('soporte', function (Blueprint $table) {
+        Schema::create('support', function (Blueprint $table) {
             $table->id();
-            $table->string('nombre');
-            $table->string('motivo');
-            $table->string('email');
-            $table->string('descripcion');
             $table->timestamps();
+            $table->string("idTicket");
+            $table->string("idTemplate");
+            $table->string("NombreSitio");
+            $table->string("NombreUser");
+            $table->string("email");
+            $table->string("motivo");
+            $table->string("descripcion");
         });
     }
 
@@ -30,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('soporte');
+        Schema::dropIfExists('_support');
     }
 };
