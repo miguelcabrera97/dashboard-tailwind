@@ -73,6 +73,7 @@ Route::post('/despublish',[SitesController::class,'despublish'])->name('despubli
 // Route::get('/soporte', function(){
 //   return view('soporte.soporte');
 // })->name('soporte');
+
 Route::get('/soporte',[SoporteController::class,'sitios'])->name('soporte');
 Route::get('/tickets',[SoporteController::class,'ticket'])->name('tickets');
 Route::get('/submitsucess',[SoporteController::class,'sucess_sup'])->name('sucess_sup');

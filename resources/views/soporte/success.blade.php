@@ -169,7 +169,8 @@ p{
   }
 }
 }
-    </style>
+</style>
+
     <body>
         <div class="thank-you-wrapper">
             <div class="check-mark-block">
