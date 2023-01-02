@@ -178,8 +178,9 @@ p{
                 <span></span>
               </div>
             </div>
-            <h3>Ticket Creado</h3>
-            <p>Have a great day!</p>
+                <h3>Ticket Creado</h3>
+                <h2>{{$id_ticket}}</h2>
+                <p>Recibirás un correo electrónico con mayor información.</p>
           </div>
     </body>
 </html>
