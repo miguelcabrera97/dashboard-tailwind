@@ -123,7 +123,7 @@
                 <form action="{{route('check')}}" method="GET" >
                     <input type="hidden" value="{{Auth::user()->email}}" name="emailuser">
                     <input type="hidden" value="{{$nombre}}" name="name">
-                    <input type="hidden" value="{{$id}}" name="sitioId">
+                    <input type="hidden" value="{{$id}}" name="siteid">
                     <button href="#/" class="flex items-center justify-center w-full px-4 py-5 text-xl text-center text-white transition duration-300 ease-in-out transform bg-indigo-600 rounded-xl hover:-translate-y-1 hover:scale-110 hover:bg-blue-600 hover:rounded-2xl ">
                         Elegir Mensual
                         <img src="https://res.cloudinary.com/williamsondesign/arrow-right.svg" class="ml-2" />

@@ -33,7 +33,7 @@ class CreateNewUser implements CreatesNewUsers
         $client = new \GuzzleHttp\Client();
         // DUDA ACCOUNT CREATE
         $response = $client->request('POST', 'https://api.duda.co/api/accounts/create', [
-            'body' => '{"account_type":"CUSTOMER","account_name":"'.$input['email'].'","first_name":"'.$input['name'].'" ,"last_name":"'.$input['last_name'].'"}',
+            'body' => '{"account_type":"CUSTOMER","account_name":"'.$input['email'].'","first_name":"'.$input['name'].'" ,"last_name":"'.$input['last_name'].'","lang":"es"}',
             'headers' => [
                 'Accept' => 'application/json',
                 'Authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',

@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('site_default_domain');
             $table->string('template')->nullable();
             $table->string('email');
-
+            $table->boolean('pagado');
             $table->timestamps();
         });
     }
