@@ -61,7 +61,7 @@ Route::post('/datos', function(Request $request){
   $nombre = $request->nombre;
   $id = $request->siteid;
   return view('stripe.checkout', compact('nombre', 'id'));
-});
+})->name('datos');
 
 Route::post('/publish',[SitesController::class,'publish'])->name('publicar');
 Route::get('prueba/{sitioId}', function ($sitioId) {

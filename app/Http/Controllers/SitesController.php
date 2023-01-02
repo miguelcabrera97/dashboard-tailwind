@@ -26,7 +26,7 @@ class SitesController extends Controller
         //Crea Sitio con la Plantilla Elegida
         $client = new \GuzzleHttp\Client();
         $response = $client->request('POST', 'https://api.duda.co/api/sites/multiscreen/create', [
-            'body' => '{"default_domain_prefix":"'.$request->nombre.'","template_id":"'.$request->template_id.'"}',
+            'body' => '{"lang":"es","default_domain_prefix":"'.$request->nombre.'","template_id":"'.$request->template_id.'"}',
             'headers' => [
             'Accept' => 'application/json',
             'Authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
@@ -44,14 +44,14 @@ class SitesController extends Controller
             'site_default_domain' => ''.$request->site_default_domain.'',
             'template' => ''.$request->template_id.'',
             'email' => ''.Auth::user()->email.'',
-            'pagado' => false
+            'pagado' => 0
             ],
         ]);
 
         //Otorga permisos del Sitio a la Cuenta
         $client3 = new \GuzzleHttp\Client();
         $response3 = $client3->request('POST', 'https://api.duda.co/api/accounts/'.$request->user.'/sites/'. $site_name->site_name.'/permissions', [
-            'body' => '{"permissions":["EDIT","E_COMMERCE","DEV_MODE","BACKUPS","BLOG","PUSH_NOTIFICATIONS","PUBLISH","REPUBLISH"]}',
+            'body' => '{"permissions":["STATS_TAB", "EDIT", "ADD_FLEX", "E_COMMERCE", "PUBLISH", "REPUBLISH", "DEV_MODE", "INSITE", "SEO", "BACKUPS", "CUSTOM_DOMAIN", "RESET", "BLOG","PUSH_NOTIFICATIONS", "LIMITED_EDITING", "SITE_COMMENTS", "CONTENT_LIBRARY", "EDIT_CONNECTED_DATA", "MANAGE_CONNECTED_DATA", "USE_APP", "CLIENT_MANAGE_FREE_APPS"]}',
             'headers' => [
             'Accept' => 'application/json',
             'Authorization' => 'Basic MTczMDA3ZDhlNTpUUWU5Wm5WeDB2dE4=',
