@@ -184,8 +184,3 @@ p{
           </div>
     </body>
 </html>
-
-
-<script>
-
-</script>
