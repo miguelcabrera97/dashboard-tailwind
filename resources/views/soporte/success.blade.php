@@ -180,8 +180,17 @@ p{
               </div>
             </div>
                 <h3>Ticket Creado</h3>
-                <h2>{{$id_ticket}}</h2>
+                <h2 style="margin-top: -10px">{{$id_ticket}}</h2>
                 <p>Recibirás un correo electrónico con mayor información.</p>
           </div>
     </body>
 </html>
+
+{{-- <script>
+    function redireccionar()
+    {
+       window.location.href = "/soporte";
+    }
+
+    setTimeout("redireccionar()", 3000);
+</script> --}}
