@@ -8,13 +8,17 @@ use App\Http\Controllers\TemplatesBdController;
 use App\Http\Controllers\SitesController;
 use App\Http\Controllers\SoporteController;
 use App\Http\Controllers\UserController;
-
+use App\Http\Controllers\RegistrarController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 
 Route::redirect('/', 'login');
+
+// Registro de Usuarios
+Route::get("/register",[ RegistrarController::class,'paises'])->name('register');
+
 
 Route::middleware(['auth:sanctum', 'verified'])->group(function () {
     // Route for the getting the data feed
@@ -80,3 +84,5 @@ Route::get('/submitsucess',[SoporteController::class,'sucess_sup'])->name('suces
 Route::get('/ticket_cod',[SoporteController::class,'ticket_cod'])->name('ticket_cod');
 
 Route::post("/supportform",[SoporteController::class,'InsertDataSupport'])->name('supportform');
+
+
