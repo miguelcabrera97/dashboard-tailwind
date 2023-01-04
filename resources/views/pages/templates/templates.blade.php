@@ -119,7 +119,7 @@
 
                                         <div class=" w-full text-center mt-5">
                                             <div class="relative">
-                                                <input required type="text" id="nombrar_sitio_modal" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
+                                                <input required type="text" id="nombrar_sitio_modal" name="nombre" class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg border-1 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer" placeholder=" " />
                                                 <label for="nombrar_sitio_modal" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nombre de Sitio Web</label>
                                             </div>
                                             <p id="validacion_ok" class="mt-2 text-xs text-green-600 dark:text-green-400 text-left Oculto"><span class="font-medium" id="okModal"> nombre sitio</span> es un nombre válido.</p>
@@ -128,7 +128,8 @@
                                         <div class=" w-full text-center mt-5">
                                             <button type="sumbit" class="mt-2 px-4 py-2 rounded bg-rose-500 hover:bg-rose-400 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-rose-500 focus:ring-opacity-80 cursor-pointer"> Empezar a Crear</button>
                                         </div>
-
+                                        <input type="hidden" class="w-full bg-gray-100 p-2 mt-2 mb-3" name="template_id" id="templateid"/>
+                                        <input type="hidden" class="w-full bg-gray-100 p-2 mt-2 mb-3" name="user" id="emailuser" value="{{Auth::user()->email}}" />
                                 </div>
                         </div>
                     </form>
@@ -152,7 +153,7 @@
    function toggleModal(id, img, nombre)
    {
         document.getElementById('modal').classList.toggle('hidden')
-       // document.getElementById("templateid").value = id;
+        document.getElementById("templateid").value = id;
         document.getElementById("imagen_modal").src = img;
         let nombresite = document.getElementById("namemodal").innerHTML = nombre.toUpperCase();
         //alert('img');
