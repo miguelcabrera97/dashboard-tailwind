@@ -20,3 +20,13 @@
 @media screen and (max-width: theme('screens.lg')) {
     [x-cloak="lg"] { display: none; }
 }
+
+
+.Oculto{
+    display: none;
+}
+
+.Visible
+{
+    display: block;
+}
