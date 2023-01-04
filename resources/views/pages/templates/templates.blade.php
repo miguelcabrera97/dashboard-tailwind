@@ -99,7 +99,7 @@
 
                     {{-- MODAL BODY --}}
 
-                    <form action="{{route('crear')}}" method="POST">
+                    <form action="{{route('crear')}}" method="POST" id="form_modal">
                         @csrf
                         <div class="pl-4 pb-5 w-full  flex ">
 
@@ -123,13 +123,13 @@
                                                 <label for="nombrar_sitio_modal" class="absolute text-sm text-gray-500 dark:text-gray-400 duration-300 transform -translate-y-4 scale-75 top-2 z-10 origin-[0] bg-white dark:bg-gray-900 px-2 peer-focus:px-2 peer-focus:text-blue-600 peer-focus:dark:text-blue-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:-translate-y-1/2 peer-placeholder-shown:top-1/2 peer-focus:top-2 peer-focus:scale-75 peer-focus:-translate-y-4 left-1">Nombre de Sitio Web</label>
                                             </div>
                                             <p id="validacion_ok" class="mt-2 text-xs text-green-600 dark:text-green-400 text-left Oculto"><span class="font-medium" id="okModal"> nombre sitio</span> es un nombre válido.</p>
-                                            <p id="validacion_not" class="mt-2 text-xs text-red-600 dark:text-red-400 text-left "><span class="font-medium" id="notModal"  >nombre sitio</span> no es un nombre válido.</p>
+                                            <p id="validacion_not" class="mt-2 text-xs text-red-600 dark:text-red-400 text-left  Oculto"><span class="font-medium" id="notModal"  >nombre sitio</span> no es un nombre válido.</p>
                                         </div>
-                                        <div class=" w-full text-center mt-5">
-                                            <button type="sumbit" class="mt-2 px-4 py-2 rounded bg-rose-500 hover:bg-rose-400 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-rose-500 focus:ring-opacity-80 cursor-pointer"> Empezar a Crear</button>
+                                        <div class=" w-full text-center mt-3   ">
+                                            <button type="sumbit" class="mt-2 px-4 py-2 rounded bg-rose-500 hover:bg-rose-400 text-white font-semibold text-center block w-full focus:outline-none focus:ring focus:ring-offset-2 focus:ring-rose-500 focus:ring-opacity-80 cursor-pointer hover:bg-rose-600 "> Empezar a Crear</button>
                                         </div>
-                                        <input type="hidden" class="w-full bg-gray-100 p-2 mt-2 mb-3" name="template_id" id="templateid"/>
-                                        <input type="hidden" class="w-full bg-gray-100 p-2 mt-2 mb-3" name="user" id="emailuser" value="{{Auth::user()->email}}" />
+                                        <input type="hidden" class="w-full bg-gray-100 p-2 mt-2 " name="template_id" id="templateid"/>
+                                        <input type="hidden" class="w-full bg-gray-100 p-2 mt-2 " name="user" id="emailuser" value="{{Auth::user()->email}}" />
                                 </div>
                         </div>
                     </form>
