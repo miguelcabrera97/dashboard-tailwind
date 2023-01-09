@@ -21,12 +21,16 @@
     [x-cloak="lg"] { display: none; }
 }
 
+.Visible
+{
+    display: block;
+}
+
 
 .Oculto{
     display: none;
 }
 
-.Visible
-{
-    display: block;
-}
+
+
+

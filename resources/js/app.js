@@ -1,5 +1,8 @@
 import './bootstrap';
 
+import './templates';
+
+
 import Alpine from 'alpinejs';
 
 // Import Chart.js
@@ -94,3 +97,6 @@ document.addEventListener('DOMContentLoaded', () => {
   dashboardCard09();
   dashboardCard11();
 });
+
+
+
