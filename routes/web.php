@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use App\Mail\Prueba;
+use App\Mail\TicketSupport;
+use Illuminate\Support\Facades\Mail;
 
 Route::redirect('/', 'login');
 
@@ -86,3 +89,12 @@ Route::get('/ticket_cod',[SoporteController::class,'ticket_cod'])->name('ticket_
 Route::post("/supportform",[SoporteController::class,'InsertDataSupport'])->name('supportform');
 
 
+Route::get('contactanos', function(){
+    $correo= new Prueba;
+    Mail::to('migue122747@gmail.com')->send($correo);
+    return 'Mensaje enviado';
+});
+
+Route::get('supp', function(){
+    return view('mail.TicketSupport');
+});

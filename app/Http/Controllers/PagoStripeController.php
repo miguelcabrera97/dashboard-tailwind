@@ -45,7 +45,7 @@ class PagoStripeController extends Controller {
             //return $producto;
           $subscripcion = $stripe->checkout->sessions->create([
             'customer' => ''.$idcreado->id_stripe.'',
-            'success_url' => 'http://127.0.0.1:8000/prueba/'.$request->sitioId.'',
+            'success_url' => 'http://127.0.0.1:8000/',
             'cancel_url' => 'https://www.youtube.com',
             'line_items' => [
               [
