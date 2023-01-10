@@ -92,7 +92,7 @@ Route::post("/supportform",[SoporteController::class,'InsertDataSupport'])->name
 Route::get('contactanos', function(){
     $correo= new Prueba;
     Mail::to('migue122747@gmail.com')->send($correo);
-    return 'Mensaje enviado';
+    return view('mail.TicketSupport');
 });
 
 Route::get('supp', function(){

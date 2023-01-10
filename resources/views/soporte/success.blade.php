@@ -183,6 +183,16 @@ p{
                 <h2 style="margin-top: -10px">{{$id_ticket}}</h2>
                 <p>Recibirás un correo electrónico con mayor información.</p>
           </div>
+          <form action="/contactanos" method="get">
+            @csrf
+            <button type="submit" id="btn" onmouseover="mifuncion()" >
+        </form>
+        <script>
+            window.addEventListener("load",function mifuncion(){
+                document.getElementById("btn").click();
+            })
+        
+        </script>
     </body>
 </html>
 

@@ -12,7 +12,7 @@ class Prueba extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $subject = "Informacion de Prueba";
+    public $subject = "Ticket de Soporte";
     /**
      * Create a new message instance.
      *

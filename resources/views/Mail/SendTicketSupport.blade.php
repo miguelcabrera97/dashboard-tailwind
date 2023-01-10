@@ -1,14 +1,13 @@
 <style>
-
-.h-128{
-  height: 22rem;
-}
-.content__header{
-  background: #070D12 url(https://images.unsplash.com/photo-1512499582704-623afeaf82c9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9fe691e9e5263a1fd49c1c5f88812e03&auto=format&fit=crop&w=2766&q=80) no-repeat;
-  background-position: center 1px;
-  background-size: cover;
-}
-    </style>
+  .h-128{
+    height: 22rem;
+  }
+  .content__header{
+    background: #070D12 url(https://images.unsplash.com/photo-1512499582704-623afeaf82c9?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=9fe691e9e5263a1fd49c1c5f88812e03&auto=format&fit=crop&w=2766&q=80) no-repeat;
+    background-position: center 1px;
+    background-size: cover;
+  }
+</style>
 
 
     <div class="min-h-screen px-4 py-8 font-sans app min-w-screen bg-grey-lighter">
