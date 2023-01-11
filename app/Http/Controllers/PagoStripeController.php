@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
 use Stripe\Stripe;
 use Illuminate\Support\Facades\Auth;
@@ -66,12 +67,13 @@ class PagoStripeController extends Controller {
           []
         );
         //DB::table('facturacion')->where('product_name', '=', $request->nombre )->delete();
-        return view('pages/dashboard/dashboard');
+        DB::table('facturacion')->where('product_name', $request->nombre)->update(['estado'=>'Cancelada']);
+        return redirect()->route('facturacion');
 
     }
 
     public function pausarSuscripcion(Request $request){
-
+      
       $stripe= new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
 
       $stripe->subscriptions->update(
@@ -81,12 +83,12 @@ class PagoStripeController extends Controller {
         ],
 
       );
-
+      DB::table('facturacion')->where('product_name', $request->nombre)->update(['estado'=>'Pausado']);
       // $update= DB::update(
       //   'update facturacion set estado = Pausados where id_sub = ?',
       //   [''.$request->sub.'']
       // );
-      return view('pages/dashboard/dashboard');
+      return redirect()->route('facturacion');
     }
 
     public function reanudarSuscripcion(Request $request){
@@ -98,12 +100,13 @@ class PagoStripeController extends Controller {
         ],
 
       );
-
+      DB::table('facturacion')->where('product_name', $request->nombre)->update(['estado'=>'Activa']);
       // DB::table('facturacion')->insert([
       //   [
       //     'estado' => 'Activa'
       //   ]]);
       //     }
+      return redirect()->route('facturacion');
     }
 
     public function facturacion(){
@@ -111,9 +114,17 @@ class PagoStripeController extends Controller {
         $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
         //Consulta a BD para obtener el id del cliente
         $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
-        
+        $id_stripe = $idcreado->id_stripe;
+        $sub_status=DB::table('facturacion')->where('cliente','=', ''.$id_stripe.'')->get();
+        $con_status = sizeof($sub_status);
+        $status=array();
+        for($i=0; $i<$con_status; $i++){
+          $status[$i]=$sub_status[$i]->estado;
+        }
+        return $status;
         //Obtiene las facturas, las suscripciones activas y canceladas.
         $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
+        //return $invoices;
         $cancel=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'', 'status'=>'canceled']);
         $active=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'']);
         $contador_id_Suscripcion=sizeof($active->data);
@@ -147,7 +158,7 @@ class PagoStripeController extends Controller {
         }
 
         $sitios=DB::select('select product_name from facturacion');
-        $sitios2= DB::table('facturacion')->where('cliente', ''.$idcreado->id_stripe.'')->get();
+        $sitios2= DB::table('facturacion')->where('cliente', ''.$idcreado->id_stripe.'')->orderBy('product_name', 'asc')->get();
         
         $cont4=sizeof($sitios2);
         $product_name = array();

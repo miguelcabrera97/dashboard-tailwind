@@ -13,19 +13,19 @@
     </style>
 
 
-    <div class="app font-sans min-w-screen min-h-screen bg-grey-lighter py-8 px-4">
+    <div class="min-h-screen px-4 py-8 font-sans app min-w-screen bg-grey-lighter">
 
-        <div class="mail__wrapper max-w-md mx-auto">
+        <div class="max-w-md mx-auto mail__wrapper">
 
-          <div class="mail__content bg-white p-8 shadow-md">
+          <div class="p-8 bg-white shadow-md mail__content">
 
-            <div class="content__header h-128 flex flex-col items-center justify-center text-center tracking-wide leading-normal bg-black -mx-8 -mt-8">
+            <div class="flex flex-col items-center justify-center -mx-8 -mt-8 leading-normal tracking-wide text-center bg-black content__header h-128">
 
             </div>
 
-            <div class="content__body py-1 border-b">
-              <h3 class="text-center text-2xl sm:text-3xl pt-4"> Tu Ticket se ha creado</h3>
-              <h4 class="text-center text-2xl sm:text-3xl  mb-8"> <b> #3519845 </b></h4>
+            <div class="py-1 border-b content__body">
+              <h3 class="pt-4 text-2xl text-center sm:text-3xl"> Tu Ticket se ha creado</h3>
+              <h4 class="mb-8 text-2xl text-center sm:text-3xl"> <b> #3519845 </b></h4>
 
               <p class="pt-4 leading-normal text-justify">
                 Estimad@  <b>{{ Auth::user()->name }}</b>
@@ -35,15 +35,15 @@
 
                <br><br> Recibirás una respesta por este medio, te pedimos estes atento la respuesta puede tardar de <b>48 - 72 Hrs hábiles</b> de acuerdo a la cantidad de sobrecarga.
 
-
-              <button class="text-white text-sm tracking-wide bg-red rounded w-full my-8 p-4 ">CHECK THE NEW VERSION</button>
-              <p class="text-sm">
+              </p>
+              
+              <p class="mt-5 text-sm">
                  El Equipo <b>Conectaply</b><br>
                  soporte@conectaply.com
               </p>
             </div>
 
-            <div class="content__footer mt-8 text-center text-grey-darker">
+            <div class="mt-8 text-center content__footer text-grey-darker">
               <h3 class="text-base sm:text-lg">Gracias por ser parte de Conectaply</h3>
               <p> <a href="#"> www.conectaply.com </a></p>
             </div>

@@ -93,7 +93,7 @@
                                     <td class="flex justify-center px-5 py-5 text-sm bg-white border-b border-gray-200">
                                       <template x-if="{{$v}}">
                                         <div>
-                                          <form class="mr-5" action="{{route('publicar')}}" method="post">
+                                          <form class="mr-5" action="/datos" method="post">
                                             @csrf
                                             <input type="hidden" value="{{ $site->nombre }}" name="nombre">
                                             <input type="hidden" value="{{ $site->siteid }}" name="siteid">
