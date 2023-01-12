@@ -18,7 +18,7 @@ class TemplatesBdController extends Controller
         ]);
 
         $templates = json_decode($response->getBody());
-        
+
         foreach($templates as $template){
             DB::table('templates')->insert([
                 ['template_name' => ''.$template->template_name.'',
@@ -26,11 +26,12 @@ class TemplatesBdController extends Controller
                 'preview_url' => ''.$template->preview_url.'',
                 'desktop_thumbnail_url' => ''.$template->desktop_thumbnail_url.'',
                 ],
-            ]);  
+            ]);
         }
-        
-        
+
+
 
          return view('pages.templates.templates', compact('templates'));
+         //return redirect()->route('plantillas', compact('templates'));
     }
 }

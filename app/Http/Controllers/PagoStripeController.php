@@ -73,7 +73,7 @@ class PagoStripeController extends Controller {
     }
 
     public function pausarSuscripcion(Request $request){
-      
+
       $stripe= new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
 
       $stripe->subscriptions->update(
@@ -101,11 +101,6 @@ class PagoStripeController extends Controller {
 
       );
       DB::table('facturacion')->where('product_name', $request->nombre)->update(['estado'=>'Activa']);
-      // DB::table('facturacion')->insert([
-      //   [
-      //     'estado' => 'Activa'
-      //   ]]);
-      //     }
       return redirect()->route('facturacion');
     }
 
@@ -115,20 +110,20 @@ class PagoStripeController extends Controller {
         //Consulta a BD para obtener el id del cliente
         $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
         $id_stripe = $idcreado->id_stripe;
-        $sub_status=DB::table('facturacion')->where('cliente','=', ''.$id_stripe.'')->get();
+        $sub_status=DB::table('facturacion')->where('cliente','=', ''.$id_stripe.'')->orderBy('id','desc')->get();
         $con_status = sizeof($sub_status);
         $status=array();
         for($i=0; $i<$con_status; $i++){
           $status[$i]=$sub_status[$i]->estado;
         }
-        return $status;
+
         //Obtiene las facturas, las suscripciones activas y canceladas.
         $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
         //return $invoices;
         $cancel=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'', 'status'=>'canceled']);
         $active=$stripe->subscriptions->all(['customer' => ''.$idcreado->id_stripe.'']);
         $contador_id_Suscripcion=sizeof($active->data);
-        
+
         $id_subs= array();
         //return $contador_id_Suscripcion;
         for($i=0; $i<$contador_id_Suscripcion; $i++){
@@ -159,7 +154,7 @@ class PagoStripeController extends Controller {
 
         $sitios=DB::select('select product_name from facturacion');
         $sitios2= DB::table('facturacion')->where('cliente', ''.$idcreado->id_stripe.'')->orderBy('product_name', 'asc')->get();
-        
+
         $cont4=sizeof($sitios2);
         $product_name = array();
          for($i=0; $i<$cont4; $i++){
@@ -168,6 +163,6 @@ class PagoStripeController extends Controller {
 
         $subscripciones = array_merge($canceladas, $activas);
         //return dd($active);
-       return view('stripe.facturacion', compact('id_subs','invoices','end','start', 'subscripciones','product_name'));
+       return view('stripe.facturacion', compact('id_subs','invoices','end','start', 'subscripciones','product_name','status','contador_id_Suscripcion'));
     }
 }

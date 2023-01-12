@@ -163,7 +163,7 @@
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
                       Nombre Del Sitio
                     </th>
-                    
+
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
                       Acciones
                     </th>
@@ -182,29 +182,29 @@
                 <tbody>
 
                   @php
-               
+
                     $cont = 0;
-                
-                   
+
+
                   @endphp
                  @foreach ($invoices as $invoice)
                   <tr>
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <div class="text-center">
                         <p class="text-gray-900 whitespace-no-wrap">
-                        
-                           
-                          
+
+
+
                           {{$product_name[$cont]->product_name}}
-                         
-                           
+
+
                         </p>
                       </div>
                     </td>
-                    
+
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <span class="text-center capitalize">
-                        <form action="/cancelar" method="POST">
+                        <form action="{{route('cancelar')}}" method="POST">
                           @csrf
                           <input type="hidden" value="{{$product_name[$cont]->product_name}}" name="nombre">
                           <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
@@ -221,7 +221,7 @@
 
                       </span>
                       <span class="capitalize">
-                        <form action="/reanudar" method="POST">
+                        <form action="{{route('reanudar')}}" method="POST">
                           @csrf
                           <input type="hidden" value="{{$product_name[$cont]->product_name}}" name="nombre">
                           <input type="hidden" value="" name="nombre">
@@ -232,7 +232,7 @@
                       </span>
                     </td>
 
-                    
+
 
                     {{-- <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900" id="texto-activo">
@@ -249,7 +249,7 @@
                            <span class="relative text-center"> {{$status2}} </span>
                       </span>
                     </td> --}}
-                    @php
+                    {{-- @php
                         $true2 = true;
                         $statusok2 = "Activo";
                         $statusnot2 = "Cancelada";
@@ -276,9 +276,13 @@
                             <span class="relative text-center" > {{$statusnot2}}  </span>
                         </span>
                       </template>
+                    </td> --}}
+
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200 ">
+                        <span>
+                            {{$status[$cont]}}
+                        </span>
                     </td>
-
-
 
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <span class="capitalize">{{ date('d/m/Y',$invoices->data[$cont]->lines->data[0]->period->start)}}</span>
@@ -291,7 +295,7 @@
                   </tr>
                     @php
                          $cont = $cont+1;
-                        
+
                         // $cont_product_name = $cont_product_name +1;
                     @endphp
                     @endforeach
@@ -299,6 +303,7 @@
 
                 </tbody>
               </table>
+
             </div>
             {{-- TERMINA TABLA DE SUSCRIPCIONES --}}
           </div>
