@@ -82,9 +82,6 @@
 
                    @endphp
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200" x-data="{show: '{{$true}}'}">
-
-
-
                       <template x-if="show">
                         <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-green-900 " id="texto-pagado">
                           <span aria-hidden class="absolute inset-0 text-center bg-green-200 rounded-full opacity-50 " id="texto-marco-pagado"></span>
@@ -164,7 +161,7 @@
                       Nombre Del Sitio
                     </th>
 
-                    <th class="px-5 py-3 text-xs font-semibold tracking-wider text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
+                    <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
                       Acciones
                     </th>
                     <th class="px-5 py-3 text-xs font-semibold tracking-wider text-center text-gray-700 uppercase bg-gray-100 border-b-2 border-gray-200">
@@ -202,31 +199,30 @@
                       </div>
                     </td>
 
-                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
-                      <span class="text-center capitalize">
-                        <form action="{{route('cancelar')}}" method="POST">
+                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 grid grid-cols-3">
+                      <span class="capitalize p-5">
+                        <form class="text-center" action="{{route('cancelar')}}" method="POST">
                           @csrf
                           <input type="hidden" value="{{$product_name[$cont]->product_name}}" name="nombre">
                           <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
-                          <button type="submit">Cancelar</button>
+                          <button class="items-center p-3 px-4 text-white duration-300 bg-red-600 rounded-md cursor-pointer " type="submit">Cancelar</button>
                         </form>
                       </span>
-                      <span class="capitalize">
-                        <form action="{{route('pausar')}}" method="POST">
+                      <span class="capitalize p-5">
+                        <form class="text-center" action="{{route('pausar')}}" method="POST">
                           @csrf
                           <input type="hidden" value="{{$product_name[$cont]->product_name}}" name="nombre">
                           <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
-                          <button  type="submit">Pausar</button>
+                          <button class="items-center p-3 px-4 text-white duration-300 bg-yellow-600 rounded-md cursor-pointer "  type="submit">Pausar</button>
                         </form>
 
                       </span>
-                      <span class="capitalize">
-                        <form action="{{route('reanudar')}}" method="POST">
+                      <span class="capitalize p-5">
+                        <form class="text-center" action="{{route('reanudar')}}" method="POST">
                           @csrf
                           <input type="hidden" value="{{$product_name[$cont]->product_name}}" name="nombre">
-                          <input type="hidden" value="" name="nombre">
                           <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
-                          <button type="submit">Reanudar</button>
+                          <button class="items-center p-3 px-4 text-white duration-300 bg-green-600 rounded-md cursor-pointer " type="submit">Reanudar</button>
                         </form>
 
                       </span>
