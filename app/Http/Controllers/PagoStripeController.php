@@ -89,7 +89,7 @@ class PagoStripeController extends Controller {
       //   'update facturacion set estado = Pausados where id_sub = ?',
       //   [''.$request->sub.'']
       // );
-      return $request->sub;
+      //return $request->sub;
       return redirect()->route('facturacion');
     }
 
@@ -103,7 +103,7 @@ class PagoStripeController extends Controller {
         ],
         
       );
-      return $request->sub;
+      //return $request->sub;
       DB::table('facturacion')->where('product_name', $request->nombre)->update(['estado'=>'Activa']);
       return redirect()->route('facturacion');
     }
@@ -159,7 +159,7 @@ class PagoStripeController extends Controller {
         }
 
         $sitios=DB::select('select product_name from facturacion');
-        $sitios2= DB::table('facturacion')->where('cliente', ''.$idcreado->id_stripe.'')->get();
+        $sitios2= DB::table('facturacion')->where('cliente', ''.$idcreado->id_stripe.'')->orderByDesc('id')->get();
 
         $cont4=sizeof($sitios2);
         $product_name = array();
