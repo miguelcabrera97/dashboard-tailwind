@@ -26,18 +26,26 @@
  {
     if(expresion.test(entrada.value)){
 		document.getElementById('validacion_ok').classList.remove('Oculto');
+
+        document.getElementById('nombrar_sitio_modal').className = '';
+
+     document.getElementById('nombrar_sitio_modal').className = 'block px-2.5 pb-2.5 pt-4 w-full text-sm text-green-500 bg-transparent rounded-lg border-1 border-green-500 appearance-none dark:text-white dark:border-green-500 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-500 peer';
+
+      //  document.getElementById('nombrar_sitio_modal').classList.add('block px-2.5 pb-2.5 pt-4 w-full text-sm text-green-500 bg-transparent rounded-lg border-1 border-green-500 appearance-none dark:text-white dark:border-green-500 dark:focus:border-green-500 focus:outline-none focus:ring-0 focus:border-green-500 peer');
+
         document.getElementById('validacion_not').classList.add('Oculto');
 
         let entrada_input = document.getElementById(`${campo}`).value;
         document.getElementById('okname').innerHTML = entrada_input ;
 
-		campo[campo] = true;
+		//campo[campo] = true;
 	} else {
 		document.getElementById('validacion_not').classList.remove('Oculto');
         document.getElementById('validacion_ok').classList.add('Oculto');
+
         let entrada_input = document.getElementById(`${campo}`).value;
         document.getElementById('notname').innerHTML = entrada_input ;
-		campo[campo] = false;
+		//campo[campo] = false;
 	}
  }
 
