@@ -61,6 +61,7 @@ class PagoStripeController extends Controller {
     }
 
     public function cancelarSuscripcion(Request $request){
+      return $request;
         $stripe = new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
         $stripe->subscriptions->cancel(
           ''.$request->sub.'',
@@ -73,7 +74,7 @@ class PagoStripeController extends Controller {
     }
 
     public function pausarSuscripcion(Request $request){
-
+     
       $stripe= new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
 
       $stripe->subscriptions->update(
@@ -88,18 +89,21 @@ class PagoStripeController extends Controller {
       //   'update facturacion set estado = Pausados where id_sub = ?',
       //   [''.$request->sub.'']
       // );
+      //return $request->sub;
       return redirect()->route('facturacion');
     }
 
     public function reanudarSuscripcion(Request $request){
+      
       $stripe= new \Stripe\StripeClient('sk_test_51LZk7pIouA9z8SYyfOAHSEm9opwyaipP01qRyhkiTnsw7Ue4a3GtNopuzDKyMzzrelXDmDEKcliXaSW0lI8f9euv00XJ8VrToP');
       $stripe->subscriptions->update(
         ''.$request->sub.'',
         [
           'pause_collection' => '',
         ],
-
+        
       );
+      //return $request->sub;
       DB::table('facturacion')->where('product_name', $request->nombre)->update(['estado'=>'Activa']);
       return redirect()->route('facturacion');
     }
@@ -110,13 +114,15 @@ class PagoStripeController extends Controller {
         //Consulta a BD para obtener el id del cliente
         $idcreado = DB::table('clientes')->where('email','=', ''.Auth::user()->email.'')->first();
         $id_stripe = $idcreado->id_stripe;
-        $sub_status=DB::table('facturacion')->where('cliente','=', ''.$id_stripe.'')->orderBy('id','desc')->get();
+        $sub_status=DB::table('facturacion')->where('cliente','=', ''.$id_stripe.'')->get();
+
+        
         $con_status = sizeof($sub_status);
         $status=array();
         for($i=0; $i<$con_status; $i++){
           $status[$i]=$sub_status[$i]->estado;
         }
-
+        
         //Obtiene las facturas, las suscripciones activas y canceladas.
         $invoices = $stripe->invoices->all(['customer' => ''.$idcreado->id_stripe.'']);
         //return $invoices;
@@ -153,7 +159,7 @@ class PagoStripeController extends Controller {
         }
 
         $sitios=DB::select('select product_name from facturacion');
-        $sitios2= DB::table('facturacion')->where('cliente', ''.$idcreado->id_stripe.'')->orderBy('product_name', 'asc')->get();
+        $sitios2= DB::table('facturacion')->where('cliente', ''.$idcreado->id_stripe.'')->orderByDesc('id')->get();
 
         $cont4=sizeof($sitios2);
         $product_name = array();
@@ -163,6 +169,7 @@ class PagoStripeController extends Controller {
 
         $subscripciones = array_merge($canceladas, $activas);
         //return dd($active);
+       //return $product_name;
        return view('stripe.facturacion', compact('id_subs','invoices','end','start', 'subscripciones','product_name','status','contador_id_Suscripcion'));
     }
 }

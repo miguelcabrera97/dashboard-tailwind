@@ -181,10 +181,36 @@
                   @php
 
                     $cont = 0;
-
+                    
 
                   @endphp
                  @foreach ($invoices as $invoice)
+
+                 @php
+                 if($status[$cont] =="Activa")
+                 {
+                    $activa = "absolute inset-0 text-center bg-green-200 rounded-full opacity-50";  
+                    $color='green';
+                    $visible="";
+                    $visible_p ="";
+                    $visible_A ="hidden";
+                  }
+                  else if ($status[$cont] =="Pausado") 
+                  {
+                    $activa = "absolute inset-0 text-center bg-yellow-500 rounded-full opacity-50";  
+                    $color='yellow';
+                    $visible="";
+                    $visible_p = "hidden";
+                    $visible_A ="";
+                  } else {
+                    $activa = "absolute inset-0 text-center bg-red-200 rounded-full opacity-50";  
+                    $color='red';
+                    $visible="hidden";
+                    $visible_p = "";
+                    $visible_A ="";
+                  }
+                @endphp
+
                   <tr>
                     <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
                       <div class="text-center">
@@ -199,32 +225,31 @@
                       </div>
                     </td>
 
-                    <td class="px-5 py-5 text-sm bg-white border-b border-gray-200 grid grid-cols-3">
-                      <span class="capitalize p-5">
+                    <td class="grid grid-cols-3 px-5 py-5 text-sm bg-white border-b border-gray-200">
+                      <span class="p-5 capitalize">
                         <form class="text-center" action="{{route('cancelar')}}" method="POST">
                           @csrf
                           <input type="hidden" value="{{$product_name[$cont]->product_name}}" name="nombre">
                           <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
-                          <button class="items-center p-3 px-4 text-white duration-300 bg-red-600 rounded-md cursor-pointer " type="submit">Cancelar</button>
+                          <button class="items-center p-3 px-4 text-white duration-300 bg-red-600 rounded-md cursor-pointer {{$visible}} " type="submit">Cancelar</button>
                         </form>
                       </span>
-                      <span class="capitalize p-5">
+                      <span class="p-5 capitalize">
                         <form class="text-center" action="{{route('pausar')}}" method="POST">
                           @csrf
                           <input type="hidden" value="{{$product_name[$cont]->product_name}}" name="nombre">
                           <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
-                          <button class="items-center p-3 px-4 text-white duration-300 bg-yellow-600 rounded-md cursor-pointer "  type="submit">Pausar</button>
+                          <button class="items-center p-3 px-4 text-white duration-300 bg-yellow-600 rounded-md cursor-pointer {{$visible}} {{$visible_p}}"  type="submit">Pausar</button>
                         </form>
 
                       </span>
-                      <span class="capitalize p-5">
+                      <span class="p-5 capitalize">
                         <form class="text-center" action="{{route('reanudar')}}" method="POST">
                           @csrf
                           <input type="hidden" value="{{$product_name[$cont]->product_name}}" name="nombre">
                           <input type="hidden" value="{{$invoices->data[$cont]->subscription}}" name="sub">
-                          <button class="items-center p-3 px-4 text-white duration-300 bg-green-600 rounded-md cursor-pointer " type="submit">Reanudar</button>
+                          <button class="items-center p-3 px-4 text-white duration-300 bg-green-600 rounded-md cursor-pointer {{$visible}} {{$visible_A}}" type="submit">Reanudar</button>
                         </form>
-
                       </span>
                     </td>
 
@@ -273,14 +298,21 @@
                         </span>
                       </template>
                     </td> --}}
+                  
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200 "  >
+                        {{-- <span class="{{$activa}}">
+                        {{$status[$cont]}} --}}
 
-                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200 ">
-                        <span>
-                            {{$status[$cont]}}
+                        <span class="relative inline-block px-3 py-1 font-semibold leading-tight text-center text-{{$color}}-900 " id="texto-pagado">
+                          <span aria-hidden class="{{$activa}}" id="texto-marco-pagado"></span>
+                          <span class="relative text-center" > {{$status[$cont]}} </span>
                         </span>
+
+                      </span>
+                      
                     </td>
 
-                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200">
+                    <td class="px-5 py-5 text-sm text-center bg-white border-b border-gray-200 ">
                       <span class="capitalize">{{ date('d/m/Y',$invoices->data[$cont]->lines->data[0]->period->start)}}</span>
                     </td>
 
