@@ -15,7 +15,8 @@ class SoporteController extends Controller
     // Redirecciona al usuario a la vista de Tickets ( Todos los tickets que hasta el momento el usuario ha creado)
     public function ticket()
     {
-        return view('soporte.tickets');
+        $ticketss=DB::table('support')->get();
+        return view('soporte.tickets', compact('ticketss'));
     }
 
 
@@ -46,7 +47,16 @@ class SoporteController extends Controller
         }
 
         DB::table('support')->insert([
-            ['idTicket'=>$cadena_aleatoria, 'idTemplate'=> $data->siteid_soporte, 'NombreSitio'=>$nombresitio, 'NombreUser'=> $nombre.' '.$apellido , 'email'=> Auth::user()->email, 'motivo'=> $data->motivo, 'descripcion'=> $data->support_description],
+            [
+                'idTicket'=>$cadena_aleatoria, 
+                'idTemplate'=> $data->siteid_soporte, 
+                'NombreSitio'=>$nombresitio, 
+                'NombreUser'=> $nombre.' '.$apellido , 
+                'email'=> Auth::user()->email, 
+                'motivo'=> $data->motivo, 
+                'descripcion'=> $data->support_description,
+                'created_at' => date('Y-n-j')
+            ],
         ]);
 
         return view('soporte.success',['id_ticket'=>$cadena_aleatoria]);

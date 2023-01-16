@@ -33,7 +33,7 @@
                <br><br> Recibirás una respesta por este medio, te pedimos estes atento la respuesta puede tardar de <b>48 - 72 Hrs hábiles</b> de acuerdo a la cantidad de sobrecarga.
 
 
-              <button class="w-full p-4 my-8 text-sm tracking-wide text-white rounded bg-red ">CHECK THE NEW VERSION</button>
+              
               <p class="text-sm">
                  El Equipo <b>Conectaply</b><br>
                  soporte@conectaply.com
