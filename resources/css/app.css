@@ -13,6 +13,11 @@
 @import 'tailwindcss/utilities';
 
 /* See Alpine.js: https://github.com/alpinejs/alpine#x-cloak */
+
+*{
+    font-family: 'Poppins', sans-serif;
+}
+
 [x-cloak=""] {
     display: none;
 }

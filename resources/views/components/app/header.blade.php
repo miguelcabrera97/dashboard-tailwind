@@ -1,10 +1,10 @@
-<header class="sticky top-0 z-30 bg-white border-b border-slate-200">
+<header class="sticky top-0 z-30 bg-[#E5EDF7] border-b border-slate-200">
     <div class="px-4 sm:px-6 lg:px-8">
         <div class="flex items-center justify-between h-16 -mb-px">
 
             <!-- Header: Left side -->
             <div class="flex">
-                
+
                 <!-- Hamburger button -->
                 <button
                     class="text-slate-500 hover:text-slate-600 lg:hidden"
@@ -25,7 +25,7 @@
             <!-- Header: Right side -->
             <div class="flex items-center space-x-3">
 
-                
+
 
                 <!-- Divider -->
                 <hr class="w-px h-6 bg-slate-200" />

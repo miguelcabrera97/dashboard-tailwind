@@ -19,7 +19,7 @@
             <div class="relative flex">
 
                 <!-- Content -->
-                <div class="w-full md:w-1/2">
+                <div class="w-full md:w-2/5">
 
                     <div class="min-h-screen h-full flex flex-col after:flex-1">
 
@@ -28,7 +28,7 @@
                             <div class="flex items-center justify-between h-16 px-4 sm:px-6 lg:px-8">
                                 <!-- Logo -->
                                 <a class="block" href="{{ route('dashboard') }}">
-                                    Conectaply
+
                                 </a>
                             </div>
                         </div>
@@ -42,8 +42,8 @@
                 </div>
 
                 <!-- Image -->
-                <div class="hidden md:block absolute top-0 bottom-0 right-0 md:w-1/2" aria-hidden="true">
-                    <img class="object-cover object-center w-full h-full" src="{{ asset('images/auth-image.webp') }}" width="760" height="1024" alt="Authentication image" />
+                <div class="hidden md:block absolute top-0 bottom-0 right-0 md:w-3/5" aria-hidden="true">
+                    <img class="object-cover object-center w-full h-full" src="{{ asset('images/image.webp') }}" width="760" height="1024" alt="Authentication image" />
                 </div>
 
             </div>

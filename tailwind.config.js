@@ -54,7 +54,7 @@ module.exports = {
             },
             zIndex: {
                 60: '60',
-            },
+            }
         },
     },
     plugins: [
